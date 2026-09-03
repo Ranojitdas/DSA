@@ -11,12 +11,12 @@ public:
             
             while(right>left){
                 int sum = nums[left] + nums[right]+nums[i];
-                if(abs(sum-target)<abs(result-target)){
-                    result = sum;
-                }
-                else if(sum == target){
+                if(sum == target){
                     result = target;
                     break;
+                }
+                else if(abs(sum-target)<abs(result-target)){
+                    result = sum;
                 }
                 else if(sum  > target){
                     right--;
