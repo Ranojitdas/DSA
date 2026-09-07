@@ -44,8 +44,20 @@ Use:
 
 **My Mistake**
 - Include only mistakes Ranojit actually made while solving or debugging the problem.
+- If there are meaningful mistakes, keep them to **at most two concise points**, formatted as **i)** and **ii)**.
+- Do not force two points when there is only one meaningful mistake. In that case, keep one concise point.
+- If there is no meaningful mistake, omit the **My Mistake** section entirely.
+- Do not split one mistake artificially just to create two points.
 
-Do not force a section when there is nothing meaningful to add.
+Example:
+
+```md
+**My Mistake**
+- i) I initially tried to force the problem into a two-pointer approach.
+- ii) I assumed that using three pointers would make the solution O(n²), because I associated multiple pointers with 3Sum.
+```
+
+Do not turn every temporary thought, small observation, or normal part of the solving process into a mistake. Keep only mistakes that are useful for avoiding the same issue in a future problem/interview.
 
 ## 4. Sources for Problem Entries
 
@@ -103,6 +115,8 @@ Prefer a short sentence that captures the underlying idea, for example:
 - General or repeated mistakes can also be summarized in **My Mistakes & Lessons**.
 - Do not invent mistakes or add generic mistakes just to fill space.
 - Prefer the smallest useful wording that preserves what Ranojit actually learned.
+- Keep problem-specific mistakes to **0–2 meaningful points**. Use **i)** and **ii)** when there are two distinct mistakes.
+- Do not record temporary thoughts or minor observations unless they reveal a reusable misconception or debugging lesson.
 
 ## 9. Handwritten Notes vs GitHub MD
 
