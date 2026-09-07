@@ -357,9 +357,7 @@ if (sum1 < target)
 > Multiple pointers can still be O(n) when they are moving boundaries through one pass.
 
 **My Mistake**
-- I initially tried to force the problem into a two-pointer approach.
-- I hesitated to use three pointers because I associated multiple pointers with the O(n²) complexity of 3Sum.
-- The important distinction is that in 3Sum the scan is repeated for every fixed `i`, while in Dutch National Flag the pointers partition the same array in one pass.
+> I initially assumed that using three pointers would make the solution O(n²), because I associated multiple pointers with 3Sum. The important thing I learned is that **complexity depends on how the pointers move, not how many pointers there are**.
 
 ---
 
