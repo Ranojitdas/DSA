@@ -236,9 +236,8 @@ Also test small boundary cases such as empty arrays, one element, two elements, 
 > First define what each pointer is searching for; boundaries become easier afterward.
 
 **My Mistake**
-- I overthought boundary conditions before fully defining the pointer roles.
-- Independent `if` statements could both execute in one loop iteration, so I accidentally moved pointers more than expected.
-- I also learned that every `while` iteration needs clear progress; otherwise the loop can repeat and cause TLE.
+- i) I focused on boundary conditions before fully defining what `left` and `right` should represent.
+- ii) Independent `if` statements could both execute in one loop iteration, so I accidentally moved pointers more than expected and had to pay closer attention to loop progress.
 
 #### LC 283 — Move Zeroes
 
@@ -357,7 +356,8 @@ if (sum1 < target)
 > Multiple pointers can still be O(n) when they are moving boundaries through one pass.
 
 **My Mistake**
-> I initially assumed that using three pointers would make the solution O(n²), because I associated multiple pointers with 3Sum. The important thing I learned is that **complexity depends on how the pointers move, not how many pointers there are**.
+- i) I initially tried to force the problem into a two-pointer approach instead of recognizing that the pointers could represent different regions.
+- ii) I assumed that using three pointers would make the solution O(n²), because I associated multiple pointers with 3Sum. Complexity depends on how the pointers move, not how many pointers there are.
 
 ---
 
@@ -396,11 +396,11 @@ if (sum1 < target)
 
 ### Mistakes
 
-- I sometimes focused on boundary conditions before clearly deciding what each pointer represented.
-- Independent `if` statements can both execute in the same loop iteration; pointer movement must be traced carefully.
-- I initially thought using three pointers would imply O(n²), because I connected it with 3Sum. The number of pointers is not the complexity; repeated scanning is.
-- In pointer loops, forgetting to move a pointer can cause an infinite loop/TLE.
-- I learned to distinguish debugging by error type: **Wrong Answer → trace logic; Runtime Error → check boundaries; TLE → check progress and complexity.**
+- i) I sometimes focused on boundary conditions before clearly deciding what each pointer represented.
+- ii) Independent `if` statements can both execute in the same loop iteration; pointer movement must be traced carefully.
+- iii) I initially thought using three pointers would imply O(n²), because I connected it with 3Sum. The number of pointers is not the complexity; repeated scanning is.
+- iv) In pointer loops, forgetting to move a pointer can cause an infinite loop/TLE.
+- v) I learned to distinguish debugging by error type: **Wrong Answer → trace logic; Runtime Error → check boundaries; TLE → check progress and complexity.**
 
 ### Lessons
 
