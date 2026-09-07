@@ -53,8 +53,11 @@ Use two different sources for two different purposes:
 
 - **ChatGPT conversation:** source of truth for Ranojit's actual attempts, debugging process, mistakes, misconceptions, and lessons.
 - **GitHub / LeetSync submission:** source of truth for the final submitted implementation and the approach that was ultimately accepted.
+- **Standard DSA reference:** use a reputable standard DSA book or reference resource as a conceptual cross-check when building a pattern, mainly to make sure important fundamentals are not missed.
 
-Never infer or invent a personal mistake from the final accepted GitHub code.
+The standard reference is a **supporting source**, not the source for Ranojit's personal notes. Do not reproduce textbook explanations or turn the pattern MD into textbook notes.
+
+Never infer or invent a personal mistake from the final accepted GitHub code or from the standard reference.
 
 When adding a problem entry, check the corresponding GitHub problem folder when useful to verify the final implementation, but personal mistakes must come from the actual solving discussion.
 
