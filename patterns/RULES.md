@@ -177,3 +177,13 @@ For every new pattern:
 **Instructor notes first → Introduction + Concepts → Solve problems → Add each problem incrementally → Final cleanup after ~10–12 problems.**
 
 The instructor's way of recognizing the pattern should be preserved in a cleaned-up form, because recognition is a major part of interview revision.
+
+## 12. Concepts & Patterns Conciseness
+
+The **Concepts & Patterns** section should contain only the **core, reusable concepts/patterns** needed to recognize and apply the pattern.
+
+- Keep this section concise and revision-oriented; do not turn it into a textbook chapter.
+- Use a small number of clear core patterns rather than many separate subsections.
+- Problem-specific tricks, counting techniques, implementation details, debugging details, and one-off observations should normally stay inside the relevant **Problems Solved** entry or as short supporting rules.
+- Do not create a separate major concept for something unless it is genuinely reusable across multiple problems in the pattern.
+- Preserve important instructor concepts, but compress them into the core patterns and short supporting rules instead of removing the underlying knowledge.
