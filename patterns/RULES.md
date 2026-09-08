@@ -3,7 +3,7 @@
 ## 1. Pattern Workflow
 
 - Before creating a new pattern MD, ask Ranojit for the notes from his instructor's video.
-- Use those instructor notes to build the pattern's recognition signals and concepts.
+- Use those instructor notes to build the pattern's recognition clues and concepts.
 - For a new pattern, write the **Introduction** and **Concepts & Patterns** sections before the problem-solving phase.
 - Do not wait until 10–12 problems are solved to start recording problems.
 - Add each solved problem to the pattern MD incrementally while the learning and mistakes are still fresh.
@@ -20,7 +20,51 @@ Use 4 main sections:
 3. Problems Solved
 4. My Mistakes & Lessons
 
-Keep the structure consistent across patterns.
+### 2.1 Introduction Subsections
+
+Keep these subsection names consistent across patterns:
+
+- **Definition** — what the pattern/technique is.
+- **When to use?** — the clues in a problem that suggest this pattern may be useful.
+- **Basic Idea** — the simple mental model of how the pattern works.
+
+Do not create separate headings such as **Recognition Signals** and **When should I think of it?** for the same purpose. Keep recognition clues under **When to use?**.
+
+### 2.2 Concepts & Patterns Subsections
+
+The subsection names here should be **pattern-specific**, based on the main reusable variations taught by the instructor and supported by standard DSA references.
+
+- Usually use around **2–4 main pattern/variation subsections**.
+- Keep subsection names short and natural so they are easy to scan and copy into the handwritten notebook.
+- Add a single **Rules** subsection for short reusable rules that do not belong to one specific variation.
+- Do not create extra subsections under **Rules** by default. Split Rules further only when a pattern genuinely needs separate categories such as Movement, Complexity, or Edge Cases.
+- Do not create a subsection just to make the structure look fuller. Every subsection should contain genuinely reusable knowledge.
+
+Example:
+
+```md
+## 1. Introduction
+
+### Definition
+
+### When to use?
+
+### Basic Idea
+
+## 2. Concepts & Patterns
+
+### Fixed Window
+
+### Dynamic Window
+
+### Rules
+
+## 3. Problems Solved
+
+## 4. My Mistakes & Lessons
+```
+
+Keep the overall structure consistent, while allowing Section 2's concept names to change according to the pattern.
 
 ## 3. Problem Entry Style
 
