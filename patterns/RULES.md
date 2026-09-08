@@ -187,3 +187,13 @@ The **Concepts & Patterns** section should contain only the **core, reusable con
 - Problem-specific tricks, counting techniques, implementation details, debugging details, and one-off observations should normally stay inside the relevant **Problems Solved** entry or as short supporting rules.
 - Do not create a separate major concept for something unless it is genuinely reusable across multiple problems in the pattern.
 - Preserve important instructor concepts, but compress them into the core patterns and short supporting rules instead of removing the underlying knowledge.
+
+## 13. Interview-Important ⭐
+
+Use a **⭐** beside a problem only when it is genuinely high-priority for interview revision.
+
+- Keep stars selective; do not star most or all problems.
+- A problem may receive ⭐ because it is a common interview problem, represents an important variation of the pattern, contains a highly reusable technique/trick, or is especially valuable to revisit for interview preparation.
+- The ⭐ is a revision-priority marker, not a statement that unstarred problems are unimportant or should not be solved.
+- All regular problems that Ranojit solves can still be recorded in the GitHub pattern MD; the ⭐ only identifies the problems that should receive priority in handwritten/interview revision.
+- Do not add a separate priority field when the ⭐ can communicate the same information cleanly.
