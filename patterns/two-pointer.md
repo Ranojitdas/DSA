@@ -99,7 +99,7 @@ Mental model:
 
 > **Triplet → fix one → remaining Two Sum.**
 
-### 2.4 Partitioning / Multiple Pointers
+### 2.4 Partition / Multiple Pointers
 
 Pointers can represent boundaries between regions rather than simply searching for two values.
 
@@ -115,73 +115,23 @@ Three pointers do **not** automatically mean O(n³) or O(n²).
 
 If every pointer moves through the array in one pass, the total work can still be **O(n)**.
 
-### 2.5 How Pointer Movement Works
+### Supporting Rules
 
-Before moving a pointer, ask:
+**Pointer movement**
+- Every loop iteration should make progress.
+- Before moving a pointer, ask what happens to the value/property being tracked.
+- In a sorted array, pointer movement is safe only when we can explain why the discarded positions cannot give a valid/better answer.
 
-> **If I move this pointer, what happens to the value/property I am tracking?**
+**Complexity**
+- Two pointers moving through the array once → often **O(n)**.
+- Fixing one element and running Two Pointer again → often **O(n²)**.
+- The number of pointers does not determine complexity; repeated work and total pointer movement do.
 
-For a sorted target-sum problem:
-
-```text
-sum < target → move left rightward → sum increases
-sum > target → move right leftward → sum decreases
-```
-
-Never move a pointer just because it "looks right". There should be a reason that the discarded positions cannot give a better/valid answer.
-
-### 2.6 Counting with Two Pointer
-
-Sometimes the goal is not to find one valid pair/triplet, but to **count all valid combinations**.
-
-If the array is sorted and, for fixed `i` and `left`, the largest possible `right` already gives a sum smaller than the target, then every smaller index between `left+1` and `right` is also valid.
-
-```cpp
-count += right - left;
-```
-
-The `right - left` counts all possible third elements between `left + 1` and `right`, so we do not need to check each one separately.
-
-### 2.7 Why Two Pointer Can Be O(n)
-
-Having two pointers does **not** mean O(n²).
-
-For a single pass:
-
-- `left` moves at most `n` times.
-- `right` moves at most `n` times.
-- Together they still perform O(n) total pointer movement.
-
-For nested/repeated scans, the complexity can become larger.
-
-Example:
-
-- Two pointers scanning once → **O(n)**
-- Fix `i` and run Two Pointer for every `i` → **O(n²)**
-
-The important thing is **how many times the pointers travel through the data**, not simply how many pointers exist.
-
-### 2.8 Debugging Two Pointer Problems
-
-When debugging:
-
-**Wrong Answer**
-- Trace pointer positions and the condition that moves them.
-
-**Runtime Error**
-- Check whether an index can become invalid: valid array indices are `0 ... n-1`.
-
-**TLE**
-- Check whether the loop always makes progress.
-- Ask: **"What changes in every iteration?"**
-- If the same pointer state can repeat, suspect an infinite loop.
-
-For pointer loops, every iteration should generally:
-
-- move a pointer, or
-- terminate.
-
-Also test small boundary cases such as empty arrays, one element, two elements, all equal values, and already sorted/reversed input.
+**Debugging**
+- Wrong Answer → trace pointer positions and movement logic.
+- Runtime Error → check index boundaries (`0 ... n-1`).
+- TLE → check loop progress and whether a scan is being repeated.
+- In a pointer loop, every iteration should generally move a pointer or terminate.
 
 ## 3. Problems Solved
 
