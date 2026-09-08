@@ -137,7 +137,7 @@ If every pointer moves through the array in one pass, the total work can still b
 
 ### 3.1 Pair Problems
 
-#### LC 167 — Two Sum II
+#### ⭐ LC 167 — Two Sum II
 
 **Think / Recognition**
 - Sorted array
@@ -167,7 +167,7 @@ Because the array is sorted, moving `left` increases the possible sum, while mov
 
 ### 3.2 Array Modification / Removal
 
-#### LC 26 — Remove Duplicates from Sorted Array
+#### ⭐ LC 26 — Remove Duplicates from Sorted Array
 
 **Think / Recognition**
 - Sorted array
@@ -190,7 +190,7 @@ if (nums[fast] != nums[slow])
 **Keep in mind**
 > One pointer scans; the other builds the valid portion.
 
-#### LC 27 — Remove Element
+#### ⭐ LC 27 — Remove Element
 
 **Think / Recognition**
 - Remove a value in-place
@@ -236,7 +236,7 @@ if (nums[fast] != 0)
 
 ### 3.3 Triplet Problems
 
-#### LC 15 — 3Sum
+#### ⭐ LC 15 — 3Sum
 
 **Think / Recognition**
 - Sorted array
@@ -268,7 +268,7 @@ This converts the remaining part of the 3Sum problem into a **Two Sum target**.
 **Keep in mind**
 > A triplet problem can become a Two Sum problem after fixing one element.
 
-#### LC 16 — 3Sum Closest
+#### ⭐ LC 16 — 3Sum Closest
 
 **Think / Recognition**
 - Array
@@ -334,7 +334,7 @@ When the largest possible third element `arr[right]` still gives a valid sum, ev
 
 ### 3.4 Partition / Rearrangement
 
-#### LC 75 — Sort Colors
+#### ⭐ LC 75 — Sort Colors
 
 **Think / Recognition**
 - Rearrange / partition
