@@ -190,10 +190,19 @@ The **Concepts & Patterns** section should contain only the **core, reusable con
 
 ## 13. Interview-Important ⭐
 
-Use a **⭐** beside a problem only when it is genuinely high-priority for interview revision.
+Use a **⭐** beside a problem when it is worth prioritizing for interview and handwritten revision.
 
-- Keep stars selective; do not star most or all problems.
-- A problem may receive ⭐ because it is a common interview problem, represents an important variation of the pattern, contains a highly reusable technique/trick, or is especially valuable to revisit for interview preparation.
-- The ⭐ is a revision-priority marker, not a statement that unstarred problems are unimportant or should not be solved.
-- All regular problems that Ranojit solves can still be recorded in the GitHub pattern MD; the ⭐ only identifies the problems that should receive priority in handwritten/interview revision.
-- Do not add a separate priority field when the ⭐ can communicate the same information cleanly.
+A problem may receive ⭐ when it meets **at least one** of these reasons:
+
+- **High interview value** — commonly asked or especially important for interview preparation.
+- **Important pattern/variation** — represents a core variation that is useful for recognizing or applying the pattern elsewhere.
+- **Reusable technique/trick** — teaches a technique, implementation idea, or reasoning trick that transfers to many problems.
+- **Personal difficulty** — Ranojit struggled with the problem or found an important misconception/debugging issue in it, making it valuable to revisit.
+
+Keep stars selective; do not star most or all problems just because they are useful.
+
+The ⭐ is a **revision-priority marker**, not a statement that unstarred problems are unimportant or should not be solved.
+
+All regular problems that Ranojit solves can still be recorded in the GitHub pattern MD. The ⭐ only identifies the problems that should receive priority in handwritten/interview revision.
+
+Do not add a separate priority field when the ⭐ can communicate the same information cleanly.
