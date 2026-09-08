@@ -8,12 +8,18 @@ Sliding Window is a technique for processing a **continuous range** of elements 
 
 ### When to use?
 
-Think about Sliding Window when:
+Think about Sliding Window when the problem involves:
 
-- The problem is on an **array or string**.
-- It asks about a **subarray or substring** — a continuous part of the original input.
-- It asks for something such as **maximum, minimum, longest, shortest, sum, count, or average** over a range.
-- The condition involves things like **at most `k`**, **at least `k`**, or **exactly `k`**.
+- **Subarray / substring** → continuous range
+- **Longest / shortest** → find the best valid range
+- **Maximum / minimum** → over a continuous range
+- **Sum / count / frequency** → maintain information inside a range
+- **At most / at least / exactly `k`** → window condition
+- **Need to avoid repeated subarray/substring scanning** → maintain a moving window
+
+The key question is:
+
+> **Can I maintain a useful property of a continuous range while moving its boundaries?**
 
 ### Basic Idea
 
@@ -80,5 +86,3 @@ Both pointers move forward; we adjust the current window instead of restarting t
 - Avoid recalculating the whole window when its information can be updated incrementally.
 
 ## 3. Problems Solved
-
-## 4. My Mistakes & Lessons
