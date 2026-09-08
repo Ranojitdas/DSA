@@ -13,12 +13,11 @@
 
 Every pattern gets its own `.md` file inside `patterns/`.
 
-Use 4 main sections:
+Use 3 main sections:
 
 1. Introduction
 2. Concepts & Patterns
 3. Problems Solved
-4. My Mistakes & Lessons
 
 ### 2.1 Introduction Subsections
 
@@ -60,8 +59,6 @@ Example:
 ### Rules
 
 ## 3. Problems Solved
-
-## 4. My Mistakes & Lessons
 ```
 
 Keep the overall structure consistent, while allowing Section 2's concept names to change according to the pattern.
@@ -170,14 +167,13 @@ Prefer a short sentence that captures the underlying idea, for example:
 
 > Closest means minimum distance from target.
 
-## 8. Personal Mistakes & Lessons
+## 8. Problem-Specific Mistakes
 
-- A mistake that is specific to one problem belongs beside that problem.
-- General or repeated mistakes can also be summarized in **My Mistakes & Lessons**.
-- Do not invent mistakes or add generic mistakes just to fill space.
-- Prefer the smallest useful wording that preserves what Ranojit actually learned.
+- A mistake that is specific to one problem belongs beside that problem under **My Mistake**.
+- Include only mistakes Ranojit actually made while solving or debugging.
 - Keep problem-specific mistakes to **0–2 meaningful points**. Use **i)** and **ii)** when there are two distinct mistakes.
 - Do not record temporary thoughts or minor observations unless they reveal a reusable misconception or debugging lesson.
+- Do not create a separate general **My Mistakes & Lessons** section for the pattern; this avoids repeating lessons already captured beside the relevant problems.
 
 ## 9. Handwritten Notes vs GitHub MD
 
