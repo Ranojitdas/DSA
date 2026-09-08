@@ -2,13 +2,13 @@
 
 ## 1. Introduction
 
-### What is Two Pointer?
+### Definition
 
 Two Pointer is a technique where two or more indices/pointers are used to process an array or linked list while avoiding unnecessary repeated scanning.
 
 The pointers may move from **opposite directions**, in the **same direction**, or act as **boundaries of different regions**.
 
-### When should I think of Two Pointer?
+### When to use?
 
 Think about Two Pointer when the problem involves:
 
@@ -16,32 +16,32 @@ Think about Two Pointer when the problem involves:
 - **Triplets / Quads** → often fix one element, then use Two Pointer
 - **Sorted array** → order gives information about pointer movement
 - **Merge** → process two sorted sequences together
-- **Remove** → remove duplicates/elements in-place
+- **Remove / modify** → work in-place without another array
 - **Rearrange / Partition** → move elements into required regions
-- **In-place / O(1) extra space** → pointers can modify the array without another array
+- **O(1) extra space** → pointers can modify the array without another array
 
-### Recognition Map
+The key question is:
+
+> **What does each pointer represent, and why can I safely move it?**
+
+### Basic Idea
+
+Use pointers to represent different positions or roles in the input. Move them based on the information the current state gives you, so that unnecessary positions are skipped instead of repeatedly scanned.
 
 ```text
-Array / Linked List
-        │
-        ├── Sorted / ordered ──────→ Opposite-direction pointers
-        │                              │
-        │                              ├── Pair / target sum
-        │                              └── Triplet → Fix one + Two Pointer
-        │
-        ├── Remove / modify ───────→ Same-direction / slow-fast pointers
-        │
-        ├── Merge ─────────────────→ Two pointers on two sequences
-        │
-        └── Rearrange / partition ─→ Multiple pointers / boundaries
+Opposite direction:
+left  →              ←  right
+
+Same direction:
+slow →
+fast →
 ```
 
-The key question is not **"Can I use two pointers?"** but **"What does each pointer represent, and why can I safely move it?"**
+The exact pointer movement depends on the variation of the problem.
 
 ## 2. Concepts & Patterns
 
-### 2.1 Opposite Direction
+### Opposite Direction
 
 Start one pointer at the beginning and one at the end.
 
@@ -59,7 +59,7 @@ For a target-sum problem:
 
 The sorted order is what makes these pointer movements safe.
 
-### 2.2 Same Direction
+### Same Direction
 
 Both pointers move through the array in the same general direction, often with different roles.
 
@@ -77,7 +77,7 @@ slow → position to write/keep
 fast → position to scan
 ```
 
-### 2.3 Fixed + Two Pointer
+### Fixed + Two Pointer
 
 For triplet problems:
 
@@ -99,7 +99,7 @@ Mental model:
 
 > **Triplet → fix one → remaining Two Sum.**
 
-### 2.4 Partition / Multiple Pointers
+### Partition / Multiple Pointers
 
 Pointers can represent boundaries between regions rather than simply searching for two values.
 
@@ -115,19 +115,22 @@ Three pointers do **not** automatically mean O(n³) or O(n²).
 
 If every pointer moves through the array in one pass, the total work can still be **O(n)**.
 
-### Supporting Rules
+### Rules
 
 **Pointer movement**
+
 - Every loop iteration should make progress.
 - Before moving a pointer, ask what happens to the value/property being tracked.
 - In a sorted array, pointer movement is safe only when we can explain why the discarded positions cannot give a valid/better answer.
 
 **Complexity**
+
 - Two pointers moving through the array once → often **O(n)**.
 - Fixing one element and running Two Pointer again → often **O(n²)**.
 - The number of pointers does not determine complexity; repeated work and total pointer movement do.
 
 **Debugging**
+
 - Wrong Answer → trace pointer positions and movement logic.
 - Runtime Error → check index boundaries (`0 ... n-1`).
 - TLE → check loop progress and whether a scan is being repeated.
@@ -135,7 +138,7 @@ If every pointer moves through the array in one pass, the total work can still b
 
 ## 3. Problems Solved
 
-### 3.1 Pair Problems
+### Pair Problems
 
 #### ⭐ LC 167 — Two Sum II
 
@@ -165,7 +168,7 @@ Because the array is sorted, moving `left` increases the possible sum, while mov
 
 ---
 
-### 3.2 Array Modification / Removal
+### Array Modification / Removal
 
 #### ⭐ LC 26 — Remove Duplicates from Sorted Array
 
@@ -234,7 +237,7 @@ if (nums[fast] != 0)
 
 ---
 
-### 3.3 Triplet Problems
+### Triplet Problems
 
 #### ⭐ LC 15 — 3Sum
 
@@ -332,7 +335,7 @@ When the largest possible third element `arr[right]` still gives a valid sum, ev
 
 ---
 
-### 3.4 Partition / Rearrangement
+### Partition / Rearrangement
 
 #### ⭐ LC 75 — Sort Colors
 
@@ -354,7 +357,7 @@ When the largest possible third element `arr[right]` still gives a valid sum, ev
 
 ---
 
-### 3.5 Other Applications
+### Other Applications
 
 #### LC 977 — Squares of a Sorted Array
 
