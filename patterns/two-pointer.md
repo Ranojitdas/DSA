@@ -406,36 +406,3 @@ We fill from the back because the extra space is at the end; placing the largest
 
 **Keep in mind**
 > When merging in-place with free space at the end, fill from the back.
-
-## 4. My Mistakes & Lessons
-
-### Mistakes
-
-- i) I sometimes focused on boundary conditions before clearly deciding what each pointer represented.
-- ii) Independent `if` statements can both execute in the same loop iteration; pointer movement must be traced carefully.
-- iii) I initially thought using three pointers would imply O(n²), because I connected it with 3Sum. The number of pointers is not the complexity; repeated scanning is.
-- iv) In pointer loops, forgetting to move a pointer can cause an infinite loop/TLE.
-- v) I learned to distinguish debugging by error type: **Wrong Answer → trace logic; Runtime Error → check boundaries; TLE → check progress and complexity.**
-
-### Lessons
-
-- Define pointer roles first; handle boundary conditions afterward.
-- Every pointer movement needs a reason.
-- In a sorted array, pointer movement is powerful because order tells us what can be discarded.
-- Two Pointer is not one single technique. It includes opposite-direction, same-direction, fixed + two pointer, and partitioning/multiple-pointer approaches.
-- The number of pointers does not determine complexity. **Total pointer movement and repeated scans do.**
-- For triplets, think: **fix one → remaining Two Sum.**
-- For counting problems, look for situations where one pointer position proves a whole range of choices valid at once.
-
-### Things to Remember in Interviews
-
-Before coding a Two Pointer problem, ask:
-
-1. **Why Two Pointer?** What structure makes pointer movement safe?
-2. **What does each pointer represent?**
-3. **When should each pointer move?**
-4. **What positions can I safely discard after moving it?**
-5. **Does every loop iteration make progress?**
-6. **How many times can each pointer move?**
-
-> **Problem → Recognition → Pointer roles → Movement rule → Key trick → Code**
