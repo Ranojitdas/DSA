@@ -140,7 +140,7 @@ If the array is sorted and, for fixed `i` and `left`, the largest possible `righ
 count += right - left;
 ```
 
-This avoids checking each third element individually.
+The `right - left` counts all possible third elements between `left + 1` and `right`, so we do not need to check each one separately.
 
 ### 2.7 Why Two Pointer Can Be O(n)
 
@@ -199,6 +199,17 @@ Also test small boundary cases such as empty arrays, one element, two elements, 
 - `sum < target` → `left++`
 - `sum > target` → `right--`
 
+**Important Code**
+
+```cpp
+if (sum < target)
+    left++;
+else
+    right--;
+```
+
+Because the array is sorted, moving `left` increases the possible sum, while moving `right` decreases it. This lets us discard one side safely.
+
 **Keep in mind**
 > Sorted order tells me which side can be safely discarded.
 
@@ -216,6 +227,15 @@ Also test small boundary cases such as empty arrays, one element, two elements, 
 **Core Idea**
 - One pointer tracks the position of the next unique value.
 - The other scans the array.
+
+**Important Code**
+
+```cpp
+if (nums[fast] != nums[slow])
+    nums[++slow] = nums[fast];
+```
+
+`fast` scans for a new value; when it differs from the last kept value, `slow` moves forward and writes that unique value into the valid portion.
 
 **Keep in mind**
 > One pointer scans; the other builds the valid portion.
@@ -250,6 +270,15 @@ Also test small boundary cases such as empty arrays, one element, two elements, 
 - One pointer scans the array.
 - Another tracks where the next non-zero element should go.
 
+**Important Code**
+
+```cpp
+if (nums[fast] != 0)
+    swap(nums[slow++], nums[fast]);
+```
+
+`fast` searches for non-zero values, while `slow` marks the next position where a non-zero value should be placed.
+
 **Keep in mind**
 > Separate the scanning pointer from the position where valid elements are placed.
 
@@ -272,11 +301,19 @@ Also test small boundary cases such as empty arrays, one element, two elements, 
 
 **Important Code**
 
-For fixed `i`, the remaining two elements need:
+For fixed `i`, we need:
+
+```text
+nums[left] + nums[right] = -nums[i]
+```
+
+So:
 
 ```cpp
 int target = -nums[i];
 ```
+
+This converts the remaining part of the 3Sum problem into a **Two Sum target**.
 
 **Keep in mind**
 > A triplet problem can become a Two Sum problem after fixing one element.
@@ -304,12 +341,16 @@ Initialize `result` with the first valid triplet:
 int result = nums[0] + nums[1] + nums[2];
 ```
 
+We need an actual valid triplet as the initial comparison value; starting from `0` could be wrong because `0` may not be the closest possible sum.
+
 Update it whenever a closer sum is found:
 
 ```cpp
 if (abs(sum - target) < abs(result - target))
     result = sum;
 ```
+
+We compare the **distance from the target**, not whether the sum itself is numerically smaller or larger.
 
 **Keep in mind**
 > Closest means minimum distance from target.
@@ -333,6 +374,8 @@ if (abs(sum - target) < abs(result - target))
 if (sum1 < target)
     output += right - left;
 ```
+
+When the largest possible third element `arr[right]` still gives a valid sum, every smaller third element between `left + 1` and `right` is also valid. `right - left` counts those choices at once.
 
 **Keep in mind**
 > When the largest possible third value is still valid, all smaller choices are valid too.
@@ -375,6 +418,17 @@ if (sum1 < target)
 - The larger absolute value produces the larger square.
 - Fill the result from the end.
 
+**Important Code**
+
+```cpp
+if (abs(nums[left]) > abs(nums[right]))
+    result[pos--] = nums[left] * nums[left];
+else
+    result[pos--] = nums[right] * nums[right];
+```
+
+The largest square must come from one of the two ends, so we place the larger square at the current position from the back.
+
 **Keep in mind**
 > In a sorted array with negatives, the largest square can come from either end.
 
@@ -388,6 +442,14 @@ if (sum1 < target)
 **Core Idea**
 - Compare the largest remaining values and fill the array from the back.
 - Working backward avoids overwriting values that still need to be processed.
+
+**Important Code**
+
+```cpp
+nums[k--] = max(nums[i], nums[j]);
+```
+
+We fill from the back because the extra space is at the end; placing the largest value there prevents overwriting unprocessed elements.
 
 **Keep in mind**
 > When merging in-place with free space at the end, fill from the back.
