@@ -25,6 +25,12 @@ Keep these subsection names consistent across patterns:
 
 - **Definition** — what the pattern/technique is.
 - **When to use?** — the clues in a problem that suggest this pattern may be useful.
+  - This section must be **recognition-focused**, not a description of what the pattern does.
+  - Build it primarily from the **instructor's notes**, preserving the instructor's recognition framework and terminology where appropriate.
+  - **Verify the instructor's recognition clues against standard DSA knowledge** so the final notes teach technically correct and non-misleading concepts.
+  - If an instructor note is incomplete or technically incorrect, correct or supplement it rather than preserving an error.
+  - The goal is to answer: **"What clues in a new problem should make me consider this pattern?"**
+  - Do not turn this section into an explanation of the algorithm's mechanics; those belong in **Definition**, **Basic Idea**, or **Concepts & Patterns**.
 - **Basic Idea** — the simple mental model of how the pattern works.
 
 Do not create separate headings such as **Recognition Signals** and **When should I think of it?** for the same purpose. Keep recognition clues under **When to use?**.
