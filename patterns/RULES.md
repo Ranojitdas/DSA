@@ -38,6 +38,23 @@ Use:
 
 **Important Code**
 - Only important implementation details, initialization, or key lines that are easy to forget.
+- When a key code line represents the main trick or reasoning, briefly explain **why it is needed / why it works**.
+- Do not explain every ordinary line of code; focus on the implementation detail that is important for later revision.
+- If there is no genuinely important code detail, omit this section.
+
+Example:
+
+```md
+**Important Code**
+
+```cpp
+int target = -nums[i];
+```
+
+After fixing `nums[i]`, the remaining two elements must sum to `-nums[i]`, so this converts the remaining part into a Two Sum target.
+```
+
+The goal is to remember both **what to write** and **why the line is used**, so the idea can be reconstructed during revision.
 
 **Keep in mind**
 > One short, natural memory trigger that makes the idea click later.
