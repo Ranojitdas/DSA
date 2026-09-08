@@ -2,24 +2,20 @@
 
 ## 1. Introduction
 
-- Sliding Window is used to work with a **continuous range** of elements in an array or string.
-- The window is represented by two pointers, usually `left` and `right`.
-- Both pointers move in the **same direction** as the window slides through the input.
-- The window can **expand** or **shrink** depending on the condition of the problem.
+### Definition
 
-### Recognition Signals
+Sliding Window is a technique for processing a **continuous range** of elements in an array or string by moving the window instead of repeatedly scanning the same elements.
+
+### When to use?
 
 Think about Sliding Window when:
 
 - The problem is on an **array or string**.
 - It asks about a **subarray or substring** — a continuous part of the original input.
-- We need something such as:
-  - maximum / minimum
-  - longest / shortest
-  - sum / count / average
-  - a condition such as **at most `k`**, **at least `k`**, or **exactly `k`**
+- It asks for something such as **maximum, minimum, longest, shortest, sum, count, or average** over a range.
+- The condition involves things like **at most `k`**, **at least `k`**, or **exactly `k`**.
 
-### Basic Mental Model
+### Basic Idea
 
 ```text
 left                         right
@@ -27,13 +23,15 @@ left                         right
 [---------------------------------]
           current window
 
-right++  → expand the window
-left++   → shrink the window
+right++  → expand
+left++   → shrink
 ```
+
+Keep a window `[left ... right]` and move its boundaries instead of restarting a scan for every new range.
 
 ## 2. Concepts & Patterns
 
-### Fixed-Size Window
+### Fixed Window
 
 Use this when the required window length is fixed, such as a subarray/substring of length `k`.
 
@@ -43,15 +41,15 @@ Window size = k
 [  window  ] → slide right
 ```
 
-Instead of recalculating every window from scratch, maintain the current window's information and update it when the window moves:
+Maintain the information for the current window and update it when the window moves:
 
 ```text
 new window = old window - outgoing element + incoming element
 ```
 
-This is especially useful for running **sum, count, average, maximum/minimum with an appropriate structure**, etc.
+Useful for running **sum, count, average**, and other window information.
 
-### Dynamic-Size Window
+### Dynamic Window
 
 Use this when the window length is not fixed and must change according to a condition.
 
@@ -65,29 +63,21 @@ condition violated?
 left++   → shrink until valid
 ```
 
-The important idea is that `left` and `right` both move forward; we adjust the window rather than restarting a scan.
+Both pointers move forward; we adjust the current window instead of restarting the scan.
 
-### Window Movement Rules
+### Window Movement
 
-- `right++` → **expand** the window and include a new element.
-- `left++` → **shrink** the window and remove the leftmost element.
-- Keep track of the information needed for the current window, then update the answer while the window is valid or at the required point.
-- Make sure every pointer movement makes progress so the window does not get stuck.
+- `right++` → expand the window and include a new element.
+- `left++` → shrink the window and remove the leftmost element.
+- Maintain the information needed for the current window.
+- Update the answer at the appropriate point based on the problem.
 
-### Important Recognition Rule
+### Rules
 
-**Subarray / substring = continuous part of the original array / string.**
-
-If elements can be skipped, it is not a subarray/substring; it may instead be a subsequence or another type of selection.
-
-### Common Goal Forms
-
-Sliding Window commonly appears when finding:
-
-- maximum / minimum
-- longest / shortest valid window
-- sum / count / average inside a window
-- windows satisfying **at most `k`**, **at least `k`**, or **exactly `k`** conditions
+- **Subarray / substring = continuous part** of the original array / string.
+- If elements can be skipped, it is not a subarray/substring; it may be a subsequence or another type of selection.
+- Every pointer movement should make progress so the window does not get stuck.
+- Avoid recalculating the whole window when its information can be updated incrementally.
 
 ## 3. Problems Solved
 
