@@ -45,27 +45,25 @@ The subsection names here should be **pattern-specific**, based on the main reus
 - Do not create extra subsections under **Rules** by default. Split Rules further only when a pattern genuinely needs separate categories such as Movement, Complexity, or Edge Cases.
 - Do not create a subsection just to make the structure look fuller. Every subsection should contain genuinely reusable knowledge.
 
-Example:
+Example structure:
 
-```md
-## 1. Introduction
+    ## 1. Introduction
 
-### Definition
+    ### Definition
 
-### When to use?
+    ### When to use?
 
-### Basic Idea
+    ### Basic Idea
 
-## 2. Concepts & Patterns
+    ## 2. Concepts & Patterns
 
-### Fixed Window
+    ### Fixed Window
 
-### Dynamic Window
+    ### Dynamic Window
 
-### Rules
+    ### Rules
 
-## 3. Problems Solved
-```
+    ## 3. Problems Solved
 
 Keep the overall structure consistent, while allowing Section 2's concept names to change according to the pattern.
 
@@ -91,15 +89,13 @@ Use:
 
 Example:
 
-```md
-**Important Code**
+    **Important Code**
 
-```cpp
-int target = -nums[i];
-```
+    ```cpp
+    int target = -nums[i];
+    ```
 
-After fixing `nums[i]`, the remaining two elements must sum to `-nums[i]`, so this converts the remaining part into a Two Sum target.
-```
+    After fixing `nums[i]`, the remaining two elements must sum to `-nums[i]`, so this converts the remaining part into a Two Sum target.
 
 The goal is to remember both **what to write** and **why the line is used**, so the idea can be reconstructed during revision.
 
@@ -115,11 +111,9 @@ The goal is to remember both **what to write** and **why the line is used**, so 
 
 Example:
 
-```md
-**My Mistake**
-- i) I initially tried to force the problem into a two-pointer approach.
-- ii) I assumed that using three pointers would make the solution O(n²), because I associated multiple pointers with 3Sum.
-```
+    **My Mistake**
+    - i) I initially tried to force the problem into a two-pointer approach.
+    - ii) I assumed that using three pointers would make the solution O(n²), because I associated multiple pointers with 3Sum.
 
 Do not turn every temporary thought, small observation, or normal part of the solving process into a mistake. Keep only mistakes that are useful for avoiding the same issue in a future problem/interview.
 
@@ -195,24 +189,20 @@ Keep LeetSync-generated problem folders unchanged.
 
 Pattern revision notes belong inside:
 
-```text
-patterns/
-```
+    patterns/
 
 Example:
 
-```text
-DSA/
-├── patterns/
-│   ├── RULES.md
-│   ├── two-pointer.md
-│   ├── sliding-window.md
-│   └── binary-search.md
-├── 15-3sum/
-├── 16-3sum-closest/
-├── 27-remove-element/
-└── ...
-```
+    DSA/
+    ├── patterns/
+    │   ├── RULES.md
+    │   ├── two-pointer.md
+    │   ├── sliding-window.md
+    │   └── binary-search.md
+    ├── 15-3sum/
+    ├── 16-3sum-closest/
+    ├── 27-remove-element/
+    └── ...
 
 `patterns/` is the dedicated area for our revision notes.
 
