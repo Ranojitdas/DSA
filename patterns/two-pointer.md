@@ -99,6 +99,8 @@ Mental model:
 
 > **Triplet → fix one → remaining Two Sum.**
 
+The same idea extends to larger combination problems. For 4Sum, fix two elements (`i` and `j`) and use Two Pointer on the remaining part, giving **O(n³)** after sorting.
+
 ### Partition / Multiple Pointers
 
 Pointers can represent boundaries between regions rather than simply searching for two values.
@@ -127,6 +129,7 @@ If every pointer moves through the array in one pass, the total work can still b
 
 - Two pointers moving through the array once → often **O(n)**.
 - Fixing one element and running Two Pointer again → often **O(n²)**.
+- Fixing two elements and running Two Pointer → often **O(n³)**.
 - The number of pointers does not determine complexity; repeated work and total pointer movement do.
 
 **Debugging**
@@ -135,6 +138,12 @@ If every pointer moves through the array in one pass, the total work can still b
 - Runtime Error → check index boundaries (`0 ... n-1`).
 - TLE → check loop progress and whether a scan is being repeated.
 - In a pointer loop, every iteration should generally move a pointer or terminate.
+
+**Constraints / Data Types**
+
+- Check the input size to estimate possible time complexity.
+- Check the value range before doing arithmetic.
+- Adding several values near `10^9` can overflow a 32-bit `int`; use `long long` for the calculation when necessary.
 
 ## 3. Problems Solved
 
@@ -332,6 +341,45 @@ When the largest possible third element `arr[right]` still gives a valid sum, ev
 
 **Keep in mind**
 > When the largest possible third value is still valid, all smaller choices are valid too.
+
+#### ⭐ LC 18 — 4Sum
+
+**Think / Recognition**
+- Sorted array
+- Quadruplets
+- Target sum
+- → **Fix two + Two Pointer**
+
+**Core Idea**
+- Sort the array.
+- Fix `i` and `j`.
+- Use `left` and `right` on the remaining part.
+- `sum < target` → `left++`
+- `sum > target` → `right--`
+- `sum == target` → record the quadruplet, then move both pointers while skipping duplicates.
+
+This extends the 3Sum idea:
+
+> **Quadruplet → fix two → remaining Two Sum.**
+
+**Important Code**
+
+Because each `nums[i]` can be as large as `10^9`, the sum of four values can reach `4 × 10^9`, which does not fit in a 32-bit `int`.
+
+```cpp
+long long sum = (long long)nums[i]
+              + (long long)nums[j]
+              + (long long)nums[left]
+              + (long long)nums[right];
+```
+
+The cast makes the arithmetic happen as `long long`, preventing integer overflow.
+
+**Keep in mind**
+> Always check constraints: input size helps with complexity, value range helps with data types.
+
+**My Mistake**
+- i) I initially missed the value constraints and used `int` for a sum that could reach `4 × 10^9`, causing signed integer overflow.
 
 ---
 
