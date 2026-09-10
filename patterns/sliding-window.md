@@ -4,85 +4,156 @@
 
 ### Definition
 
-Sliding Window is a technique for processing a **continuous range** of elements in an array or string by moving the window instead of repeatedly scanning the same elements.
+Sliding Window is a technique for processing a **continuous range** of elements by moving the boundaries of a window instead of repeatedly scanning the same elements.
 
 ### When to use?
 
 Think about Sliding Window when the problem involves:
 
-- **Subarray / substring** → continuous range
-- **Longest / shortest** → find the best valid range
-- **Maximum / minimum** → over a continuous range
-- **Sum / count / frequency** → maintain information inside a range
-- **At most / at least / exactly `k`** → window condition
-- **Need to avoid repeated subarray/substring scanning** → maintain a moving window
+- **Array / String**
+- **Subarray / Substring** → continuous range
+- **Max / Min**
+- **Longest / Shortest**
+- **Sum / Count / Average**
+- **At most `k` / At least `k` / Exactly `k`**
+
+If the problem is about a **subsequence** or another non-continuous selection, Sliding Window is generally not the first pattern to consider.
 
 The key question is:
 
-> **Can I maintain a useful property of a continuous range while moving its boundaries?**
+> **Are we finding something about a continuous range, and can we expand/shrink that range using two boundaries?**
 
 ### Basic Idea
 
-```text
-left                         right
-  ↓                            ↓
-[---------------------------------]
-          current window
+Maintain a window using two boundaries, usually `left` and `right`.
 
-right++  → expand
-left++   → shrink
+```text
+[ left ........ right ]
 ```
 
-Keep a window `[left ... right]` and move its boundaries instead of restarting a scan for every new range.
+Instead of recalculating information for every range from scratch, update the current window as it moves.
+
+```text
+Old window:
+[ 1  2  3 ] 4 5
+  ↑     ↑
+ left  right
+
+Slide:
+  1 [ 2  3  4 ] 5
+      ↑     ↑
+     left  right
+```
+
+The exact movement depends on whether the window is fixed-size or dynamic.
 
 ## 2. Concepts & Patterns
 
 ### Fixed Window
 
-Use this when the required window length is fixed, such as a subarray/substring of length `k`.
+The window size remains constant, usually given by `k`.
+
+Example:
 
 ```text
-Window size = k
-
-[  window  ] → slide right
+[ 1  2  3 ] 4 5
+    ↓
+  size = k
 ```
 
-Maintain the information for the current window and update it when the window moves:
+To slide the window:
 
-```text
-new window = old window - outgoing element + incoming element
+- Add the new element entering from the right.
+- Remove the old element leaving from the left.
+
+Typical update:
+
+```cpp
+sum = sum + nums[right] - nums[left];
 ```
 
-Useful for running **sum, count, average**, and other window information.
+Useful for problems asking for a property of every subarray/substring of exactly `k` elements, such as maximum/minimum/sum/average.
 
 ### Dynamic Window
 
-Use this when the window length is not fixed and must change according to a condition.
+The window size changes depending on whether the current window satisfies a condition.
 
-General flow:
+General idea:
 
 ```text
-right++  → expand
-
-condition violated?
-    ↓
-left++   → shrink until valid
+right++ → expand the window
+left++  → shrink the window
 ```
 
-Both pointers move forward; we adjust the current window instead of restarting the scan.
+Usually:
+
+1. Expand with `right`.
+2. Check whether the window is valid.
+3. Shrink with `left` when necessary.
+4. Update the answer when the required condition is satisfied.
 
 ### Window Movement
 
-- `right++` → expand the window and include a new element.
-- `left++` → shrink the window and remove the leftmost element.
-- Maintain the information needed for the current window.
-- Update the answer at the appropriate point based on the problem.
+The important part is maintaining the information represented by the current window.
+
+When expanding:
+
+```text
+right++
+```
+
+Add the new element's contribution.
+
+When shrinking:
+
+```text
+left++
+```
+
+Remove the outgoing element's contribution.
+
+This avoids repeatedly calculating the same range from scratch.
 
 ### Rules
 
-- **Subarray / substring = continuous part** of the original array / string.
-- If elements can be skipped, it is not a subarray/substring; it may be a subsequence or another type of selection.
-- Every pointer movement should make progress so the window does not get stuck.
-- Avoid recalculating the whole window when its information can be updated incrementally.
+- A **subarray / substring is continuous**; a subsequence does not have to be continuous.
+- Fixed Window → window size usually stays `k`.
+- Dynamic Window → window size changes according to a condition.
+- Every pointer movement should make progress.
+- Before moving `left`, understand why the current window is invalid or why shrinking is required.
+- Before moving `right`, understand what information the newly included element adds to the window.
+- Sliding Window is not automatically correct just because the problem says **subarray**; the window must have a property that can be maintained while its boundaries move.
 
 ## 3. Problems Solved
+
+### Fixed Window
+
+#### ⭐ LC 643 — Maximum Average Subarray I
+
+**Think / Recognition**
+- Array
+- Subarray → continuous range
+- Exactly `k` elements
+- Maximum average
+- → **Fixed-Size Sliding Window**
+
+**Core Idea**
+- Calculate the sum of the first `k` elements.
+- Slide the window one position at a time.
+- Add the new element entering from the right.
+- Remove the element leaving from the left.
+- Keep the maximum average seen so far.
+
+Instead of recalculating every `k`-element sum:
+
+```cpp
+sum = sum + nums[right] - nums[left];
+```
+
+The window moves by one position while its size remains `k`.
+
+**Keep in mind**
+> **Fixed window → add the incoming element and remove the outgoing element.**
+
+**My Mistake**
+- i) I initially recalculated the sum starting from index `0` while increasing the right boundary, so I was not actually maintaining the current window. Once I changed it to add the incoming value and remove the outgoing value, the Sliding Window approach clicked.
