@@ -157,3 +157,26 @@ The window moves by one position while its size remains `k`.
 
 **My Mistake**
 - i) I initially recalculated the sum starting from index `0` while increasing the right boundary, so I was not actually maintaining the current window. Once I changed it to add the incoming value and remove the outgoing value, the Sliding Window approach clicked.
+
+#### LC 1343 — Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold
+
+**Think / Recognition**
+- Array
+- Subarray → continuous range
+- Exactly `k` elements
+- Average ≥ threshold
+- → **Fixed-Size Sliding Window**
+
+**Core Idea**
+- Calculate the sum of the first `k` elements.
+- Check whether its average meets the threshold.
+- Slide the window by removing the left element and adding the new right element.
+- Check each window and count the ones whose average is ≥ `threshold`.
+
+The same fixed-window structure from LC 643 applies here; the only difference is that instead of tracking the maximum average, we count valid windows.
+
+**Keep in mind**
+> **Same window pattern, different answer condition.**
+
+**My Mistake**
+- i) I initially forgot to initialize `output` to `0`, so the result was wrong by 2. Initializing `int output = 0` fixed the counting.
