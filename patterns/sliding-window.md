@@ -180,3 +180,40 @@ The same fixed-window structure from LC 643 applies here; the only difference is
 
 **My Mistake**
 - i) I initially forgot to initialize `output` to `0`, so the result was wrong by 2. Initializing `int output = 0` fixed the counting.
+
+### Dynamic Window
+
+#### ⭐ LC 209 — Minimum Size Subarray Sum
+
+**Think / Recognition**
+- Array
+- Subarray → continuous range
+- Minimum / shortest length
+- Sum ≥ `target`
+- Positive integers
+- → **Dynamic Sliding Window**
+
+**Core Idea**
+- Expand the window by moving `high` and add `nums[high]` to `sum`.
+- Once `sum >= target`, the window is valid.
+- Shrink from the left while it remains valid, updating the minimum length each time.
+- If no valid window is found, return `0`.
+
+The important dynamic-window structure is:
+
+```text
+sum < target
+→ expand right
+
+sum >= target
+→ update answer
+→ shrink left
+```
+
+Because all numbers are **positive**, removing elements from the left can only decrease the sum, so shrinking lets us search for the shortest valid window.
+
+**Keep in mind**
+> **Dynamic window → expand until valid, then shrink while valid.**
+
+**My Mistake**
+- i) I initially thought the `sum < target` case needed a separate answer condition. It doesn't—the window simply needs to expand. The `res == INT_MAX` check belongs at the end to handle the case where no valid subarray was ever found.
