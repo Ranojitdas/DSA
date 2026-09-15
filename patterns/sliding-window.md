@@ -217,3 +217,30 @@ Because all numbers are **positive**, removing elements from the left can only d
 
 **My Mistake**
 - i) I initially thought the `sum < target` case needed a separate answer condition. It doesn't—the window simply needs to expand. The `res == INT_MAX` check belongs at the end to handle the case where no valid subarray was ever found.
+
+#### LC 904 — Fruit Into Baskets
+
+**Think / Recognition**
+- Array
+- Subarray → continuous range
+- Maximum length
+- At most `2` different fruit types
+- → **Dynamic Sliding Window**
+
+**Core Idea**
+- Expand the window with `high` and store the frequency of each fruit type.
+- If the window contains more than `2` different types, shrink from the left.
+- Decrease the outgoing fruit's frequency and erase its type when the frequency becomes `0`.
+- Update the maximum length after the window becomes valid again.
+
+The key dynamic-window structure is:
+
+```text
+add fruits[high]
+→ if types > 2, shrink from left
+→ window becomes valid
+→ update maximum length
+```
+
+**Keep in mind**
+> **When shrinking, `low` must move every time; erasing a fruit type is conditional.**
