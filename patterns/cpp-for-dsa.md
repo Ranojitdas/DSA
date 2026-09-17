@@ -328,13 +328,13 @@ Remember: `end()` points one position after the last element.
 
 ---
 
-## 7. `unordered_map` / `unordered_set`
+## 7. HashMap / HashSet (`unordered_map` / `unordered_set`)
 
 Very common in DSA for lookup and frequency counting.
 
-### 7.1 `unordered_map`
+### 7.1 HashMap → `unordered_map`
 
-Stores key-value pairs without sorted ordering.
+A HashMap stores **key-value pairs** and provides fast average-case lookup.
 
 ```cpp
 unordered_map<int, int> freq;
@@ -364,7 +364,7 @@ for(int x : nums) {
 }
 ```
 
-### 7.5 `unordered_set`
+### 7.5 HashSet → `unordered_set`
 
 Stores unique elements with fast average-case lookup.
 
@@ -377,8 +377,8 @@ seen.erase(5);
 
 ### 7.6 Map vs Set
 
-- `map` / `unordered_map` → key → value.
-- `set` / `unordered_set` → unique values only.
+- **HashMap** → key → value (`unordered_map`).
+- **HashSet** → unique values only (`unordered_set`).
 - `map` / `set` → sorted.
 - `unordered_map` / `unordered_set` → not sorted; generally used for fast average-case lookup.
 
@@ -428,5 +428,5 @@ current == nullptr
 - Basic pointers and `nullptr`
 - Basic string operations
 - Common STL containers and algorithms
-- `unordered_map` / `unordered_set` for lookup and frequency counting
+- **HashMap / HashSet (`unordered_map` / `unordered_set`)** for lookup and frequency counting
 - Basic `ListNode` syntax
