@@ -244,3 +244,31 @@ add fruits[high]
 
 **Keep in mind**
 > **When shrinking, `low` must move every time; erasing a fruit type is conditional.**
+
+#### ⭐ LC 3 — Longest Substring Without Repeating Characters
+
+**Think / Recognition**
+- String
+- Substring → continuous range
+- Longest length
+- No repeating characters
+- → **Dynamic Sliding Window + HashMap**
+
+**Core Idea**
+- Expand the window with `high` and store the frequency of each character in the HashMap.
+- If the current character becomes repeated, shrink from the left until the window is valid again.
+- Update the maximum window length after removing the duplicate.
+
+The key condition is:
+
+```cpp
+while(f[s[high]] > 1){
+    f[s[low]]--;
+    low++;
+}
+```
+
+This keeps the current window free of duplicate characters.
+
+**Keep in mind**
+> **When a duplicate appears, shrink from the left until the window becomes unique again.**
