@@ -92,6 +92,31 @@ Usually:
 3. Shrink with `left` when necessary.
 4. Update the answer when the required condition is satisfied.
 
+### Dynamic Window Template
+
+For a dynamic window, `right` normally moves forward through the array/string using a `for` loop.
+
+```cpp
+int left = 0;
+
+for (int right = 0; right < n; right++) {
+    // include nums[right]
+
+    // update window information
+
+    while (window is invalid) {
+        // remove nums[left]
+        left++;
+    }
+
+    // update answer
+}
+```
+
+- `right` → expands the window and introduces new information.
+- `left` → shrinks the window when the condition is violated.
+- Update the window's information when elements enter or leave.
+
 ### Window Movement
 
 The important part is maintaining the information represented by the current window.
