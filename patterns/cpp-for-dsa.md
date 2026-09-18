@@ -66,6 +66,52 @@ void solve(vector<int>& nums) {
 
 Notice whether the problem requires in-place modification or O(1) extra space.
 
+### 1.8 2D Vector
+
+A 2D vector is a vector of vectors and is commonly used for matrices and grids.
+
+**Initialize with values:**
+
+```cpp
+vector<vector<int>> matrix = {
+    {1, 2, 3},
+    {4, 5, 6}
+};
+```
+
+**Create an empty 2D vector and add rows:**
+
+```cpp
+vector<vector<int>> matrix;
+
+matrix.push_back({1, 2, 3});
+matrix.push_back({4, 5, 6});
+```
+
+**Create fixed rows × columns:**
+
+```cpp
+vector<vector<int>> matrix(3, vector<int>(4, 0));
+```
+
+This creates a 3 × 4 matrix filled with `0`.
+
+**Access an element:**
+
+```cpp
+matrix[row][col];
+```
+
+**Traverse:**
+
+```cpp
+for(int i = 0; i < matrix.size(); i++) {
+    for(int j = 0; j < matrix[i].size(); j++) {
+        cout << matrix[i][j];
+    }
+}
+```
+
 ---
 
 ## 2. Functions
@@ -423,6 +469,7 @@ current == nullptr
 ## What I Need to Be Comfortable With for DSA
 
 - `vector` creation, indexing, traversal and common operations
+- 2D vectors for basic matrix/grid problems
 - Functions and parameters
 - References, especially `vector<int>&`
 - Basic pointers and `nullptr`
