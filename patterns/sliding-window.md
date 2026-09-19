@@ -297,3 +297,35 @@ This keeps the current window free of duplicate characters.
 
 **Keep in mind**
 > **When a duplicate appears, shrink from the left until the window becomes unique again.**
+
+#### ⭐ LC 1004 — Max Consecutive Ones III
+
+**Think / Recognition**
+- Binary array
+- Subarray → continuous range
+- Longest length
+- Can flip at most `k` zeros
+- → **Dynamic Sliding Window**
+
+**Core Idea**
+- Expand the window with `high`.
+- Track the number of `1`s in the window using `freq`.
+- The number of `0`s is `len - freq`.
+- If the number of zeros becomes greater than `k`, shrink from the left until the window is valid again.
+- Keep the maximum valid window length.
+
+**Important Code**
+```cpp
+int len = high - low + 1;
+int diff = len - freq;
+```
+
+Here, `diff` represents the number of zeros because:
+
+> `window length - number of 1s = number of 0s`
+
+**Keep in mind**
+> **Window information must persist while the window moves; don't reset it every time `high` advances.**
+
+**My Mistake**
+- i) I initially declared `freq` inside the `for` loop, so it was reset to `0` every time `high` moved. `freq` represents information maintained across the current window, so it needs to persist outside the loop.
