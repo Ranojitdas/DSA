@@ -91,7 +91,25 @@ Never infer or invent a personal mistake from the final accepted GitHub code or 
 
 The goal is to teach reusable problem-solving and debugging habits, not just produce accepted code.
 
-## 6. Revision Philosophy
+## 6. Interview Preparation Workflow
+
+After solving and testing a problem, include a short interview-preparation step before recording the problem in the pattern MD.
+
+The discussion should cover:
+
+1. Brute-force approach
+2. Why brute force is not preferred, including TC and SC
+3. Optimal approach
+4. Optimal TC and SC
+5. Verification of correctness, complexity, and optimization
+
+The purpose is to practice explaining solutions clearly in an interview, not only producing accepted code.
+
+The interview discussion does not need to be copied into the pattern MD. The GitHub notes should remain concise and revision-oriented.
+
+The problem-solving attempt comes first. Hints and explanations should remain progressive so that the solution is still derived by Ranojit whenever possible.
+
+## 7. Revision Philosophy
 
 The notes are for quick interview revision, not for reproducing a full LeetCode editorial.
 
@@ -101,20 +119,20 @@ The desired mental flow is:
 
 Keep entries compact enough that Ranojit can scan them quickly and reconstruct the solution from memory.
 
-## 7. Keep in Mind
+## 8. Keep in Mind
 
 The **Keep in mind** line should sound natural and useful in a handwritten notebook.
 
 Avoid artificial or repetitive flashcard-style wording. Prefer a short sentence that captures the underlying idea.
 
-## 8. Problem-Specific Mistakes
+## 9. Problem-Specific Mistakes
 
 - A mistake that is specific to one problem belongs beside that problem under **My Mistake**.
 - Include only mistakes Ranojit actually made while solving or debugging.
 - Keep problem-specific mistakes to **0–2 meaningful points**.
 - Do not create a separate general **My Mistakes & Lessons** section for the pattern.
 
-## 9. Handwritten Notes vs GitHub MD
+## 10. Handwritten Notes vs GitHub MD
 
 Ranojit's handwritten notebook may contain fuller explanations, traces, rough work, and personal reminders.
 
@@ -122,7 +140,7 @@ The GitHub pattern MD should be the cleaned, concise revision version.
 
 They do not need to be identical.
 
-## 10. GitHub Organization
+## 11. GitHub Organization
 
 Keep LeetSync-generated problem folders unchanged.
 
@@ -132,7 +150,7 @@ Pattern revision notes belong inside:
 
 `patterns/` is the dedicated area for our revision notes.
 
-## 11. New Pattern Rule
+## 12. New Pattern Rule
 
 For every new pattern:
 
@@ -140,7 +158,7 @@ For every new pattern:
 
 The instructor's way of recognizing the pattern should be preserved in a cleaned-up form.
 
-## 12. Concepts & Patterns Conciseness
+## 13. Concepts & Patterns Conciseness
 
 The **Concepts & Patterns** section should contain only the **core, reusable concepts/patterns** needed to recognize and apply the pattern.
 
@@ -149,7 +167,7 @@ The **Concepts & Patterns** section should contain only the **core, reusable con
 - Problem-specific tricks, counting techniques, implementation details, debugging details, and one-off observations should normally stay inside the relevant **Problems Solved** entry or as short supporting rules.
 - Do not create a separate major concept unless it is genuinely reusable across multiple problems in the pattern.
 
-## 13. Interview-Important ⭐
+## 14. Interview-Important ⭐
 
 Use a **⭐** beside a problem when it is worth prioritizing for interview and handwritten revision.
 
@@ -162,7 +180,7 @@ A problem may receive ⭐ for:
 
 Keep stars selective. The ⭐ is a **revision-priority marker**, not a statement that unstarred problems are unimportant.
 
-## 14. LeetSync Commit Messages
+## 15. LeetSync Commit Messages
 
 When Ranojit provides the **exact LeetSync commit message**, use that exact text as the commit message for the related GitHub problem changes.
 
