@@ -427,6 +427,62 @@ seen.erase(5);
 - **HashSet** → unique values only (`unordered_set`).
 - `map` / `set` → sorted.
 - `unordered_map` / `unordered_set` → not sorted; generally used for fast average-case lookup.
+### 7.7 How `unordered_map` Stores Data
+
+`unordered_map<Key, Value>` stores a mapping:
+
+    key → value
+
+Example:
+
+```cpp
+unordered_map<char, int> freq;
+
+freq['A']++;
+freq['A']++;
+freq['B']++;
+```
+
+Conceptually:
+
+    'A' → 2
+    'B' → 1
+
+`freq['A']` means **the value stored for key `'A'`**, not an array index.
+
+Unlike a `vector`, an `unordered_map` does not store values at sequential numeric indexes.
+
+### 7.8 Accessing Missing Keys
+
+```cpp
+freq['X'];
+```
+
+Using `operator[]` for a missing key creates that key with its default value.
+
+Use `find()` or `count()` when you only want to check whether a key exists.
+
+### 7.9 Comparing / Checking Frequencies
+
+For frequency problems, compare the required frequency against the current frequency for each relevant key.
+
+Example:
+
+    needed:
+    A → 2
+    B → 1
+
+    window:
+    A → 3
+    B → 1
+
+The window satisfies the requirement because:
+
+    window[A] >= needed[A]
+    window[B] >= needed[B]
+
+For performance-sensitive sliding-window problems, maintaining a separate count of satisfied requirements can avoid repeatedly comparing the entire frequency structure.
+
 
 ---
 
