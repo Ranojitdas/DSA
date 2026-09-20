@@ -329,3 +329,50 @@ Here, `diff` represents the number of zeros because:
 
 **My Mistake**
 - i) I initially declared `freq` inside the `for` loop, so it was reset to `0` every time `high` moved. `freq` represents information maintained across the current window, so it needs to persist outside the loop.
+
+#### ⭐⭐⭐ LC 76 — Minimum Window Substring
+
+**Think / Recognition**
+- String
+- Substring → continuous range
+- Minimum / shortest valid window
+- Window must contain all characters of `t` with the required frequencies
+- → **Dynamic Sliding Window + Frequency Tracking**
+
+**Core Idea**
+- Maintain the required character frequencies from `t`.
+- Expand the window with `high` and maintain the frequencies of characters currently inside the window.
+- Once the window satisfies all required character frequencies, shrink from `low` while it remains valid.
+- Every valid window is a candidate for the minimum.
+- Store `start` and `res` together because they describe the same best window.
+
+**Important Code**
+```cpp
+if(res > len){
+    res = len;
+    start = low;
+}
+```
+
+`low` is the **current** window's left boundary, while `start` is the left boundary of the **best window found so far**. Update both only when the current window is smaller.
+
+**Keep in mind**
+> **Presence is not enough; the window must satisfy the required frequency of every character in `t`.**
+
+Also:
+
+> **A nested `while` does not automatically make Sliding Window O(n). If `low` and `high` each move forward at most `n` times, the total pointer movement is O(n).**
+
+**My Mistake**
+- i) I initially treated `t` as an ordered sequence, but the characters can appear in any order; only their required frequencies matter.
+- ii) I initially used `unordered_map<char,int>(256)` as if it were a 256-element array. Switching to fixed-size `vector<int>` frequency arrays made the constant-size character tracking explicit.
+
+**Optimization**
+- The submitted solution checks validity by scanning all 256 frequency positions in `correct()` each time.
+- This is still **O(n)** because 256 is a fixed constant, but it adds a noticeable constant factor.
+- A `count` variable can track how many required character occurrences are still missing, making the validity check **O(1)** instead of repeatedly scanning 256 entries.
+- Overall complexity remains **O(n)**, while the constant factor improves.
+
+**Complexity**
+- Time: **O(n)**
+- Space: **O(1)** because the frequency arrays have fixed size 256.
