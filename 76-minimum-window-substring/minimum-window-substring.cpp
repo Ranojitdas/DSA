@@ -1,5 +1,5 @@
 bool correct(vector<int> &s, vector<int> &t){
-    for(int i = 0; i < 256; i++){
+    for(int i = 0; i < s.size(); i++){
         if(s[i] < t[i]){
             return false;
         }
@@ -34,7 +34,7 @@ public:
                 low++;
             }
         }
-        if(start == 0 and res == INT_MAX){
+        if(res == INT_MAX){
             return "";
         }
         else{
