@@ -63,3 +63,37 @@ The different speeds allow `fast` to catch `slow` when the structure contains a 
 - If there is no cycle, `fast` eventually reaches `nullptr`.
 
 ## 3. Problems Solved
+
+### ⭐ LC 141 — Linked List Cycle
+
+**Think / Recognition**
+- Linked list + possibility of a cycle/loop → consider Slow & Fast Pointer.
+
+**Core Idea**
+- Start `slow` and `fast` at `head`.
+- Move `slow` by 1 node and `fast` by 2 nodes.
+- If a cycle exists, `fast` eventually catches `slow`.
+- If `fast` reaches `nullptr`, there is no cycle.
+
+**Important Code**
+~~~cpp
+while (fast != nullptr && fast->next != nullptr) {
+    slow = slow->next;
+    fast = fast->next->next;
+
+    if (slow == fast)
+        return true;
+}
+~~~
+- Both `fast != nullptr` and `fast->next != nullptr` must be checked before accessing `fast->next->next`.
+
+**Keep in mind**
+> Different pointer speeds can reveal a cycle because the faster pointer eventually catches the slower one inside the loop.
+
+**My Mistake**
+- i) Initially moved `fast` by 3 nodes (`fast->next->next->next`) instead of 2.
+- ii) Initially considered increasing `fast`'s speed to optimize, but it does not improve the asymptotic `O(n)` complexity.
+
+**Complexity**
+- Time: `O(n)`
+- Space: `O(1)`
