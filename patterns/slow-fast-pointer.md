@@ -1,98 +1,39 @@
-# Slow & Fast Pointer
+undefined
 
-## 1. Introduction
+### ⭐ LC 876 — Middle of the Linked List
 
-### Definition
-
-The Slow & Fast Pointer technique uses two pointers that start from the same point but move at different speeds.
-
-- **Slow** moves one step at a time.
-- **Fast** moves two steps at a time.
-
-### When to use?
-
-Look for clues such as:
-
-- A **cycle / loop** in a linked list or another repetitive structure.
-- Repetitive behaviour where one pointer moving faster can eventually catch another.
-- Problems involving **arrays, numbers, linked lists, or strings** where two different movement speeds can reveal a cycle or repeated behaviour.
-- A situation where two pointers can start from the same point and move at different speeds.
-
-### Basic Idea
-
-Think of two people running around a circular track:
-
-- One runs slowly.
-- One runs faster.
-- If a cycle exists, the faster one can eventually catch the slower one.
-- In pointer problems, this becomes a **meeting point** between `slow` and `fast`.
-
-## 2. Concepts & Patterns
-
-### Cycle Detection
-
-Start both pointers at the same position.
-
-~~~cpp
-slow = head;
-fast = head;
-
-while (fast != nullptr && fast->next != nullptr) {
-    slow = slow->next;
-    fast = fast->next->next;
-
-    if (slow == fast)
-        // cycle found
-}
-~~~
-
-The different speeds allow `fast` to catch `slow` when the structure contains a cycle.
-
-### Different Pointer Speeds
-
-- `slow` → moves 1 step.
-- `fast` → moves 2 steps.
-- Both initially start from the same point.
-- The difference in speed is what makes the technique useful for detecting repetitive behaviour.
-
-### Rules
-
-- Always check pointer safety before doing `fast->next->next`.
-- For a linked list, use `fast != nullptr && fast->next != nullptr` as the traversal condition.
-- The number of pointers does not determine complexity by itself; analyze how many times the pointers move.
-- If there is no cycle, `fast` eventually reaches `nullptr`.
-
-## 3. Problems Solved
-
-### ⭐ LC 141 — Linked List Cycle
+**Problem**
+> Given the head of a singly linked list, return its middle node. If there are two middle nodes, return the second one.
 
 **Think / Recognition**
-- Linked list + possibility of a cycle/loop → consider Slow & Fast Pointer.
+- Linked list + need to find the middle → consider Slow & Fast Pointer.
+- One pointer moves 1 step while the other moves 2 steps.
+- When `fast` reaches the end, `slow` is at the middle.
 
-**Core Idea**
-- Start `slow` and `fast` at `head`.
-- Move `slow` by 1 node and `fast` by 2 nodes.
-- If a cycle exists, `fast` eventually catches `slow`.
-- If `fast` reaches `nullptr`, there is no cycle.
+**Brute Force**
+- Traverse the list once to find its length.
+- Calculate the middle position.
+- Traverse again from `head` to the middle.
+- Time: `O(n)`, Space: `O(1)`.
+- Two passes are used, so this can be done more directly with Slow & Fast Pointer.
 
-**Important Code**
-~~~cpp
-while (fast != nullptr && fast->next != nullptr) {
-    slow = slow->next;
-    fast = fast->next->next;
+**Pseudocode**
+~~~text
+slow = head
+fast = head
 
-    if (slow == fast)
-        return true;
-}
+while fast exists and fast->next exists:
+    slow = slow->next
+    fast = fast->next->next
+
+return slow
 ~~~
-- Both `fast != nullptr` and `fast->next != nullptr` must be checked before accessing `fast->next->next`.
 
 **Keep in mind**
-> Different pointer speeds can reveal a cycle because the faster pointer eventually catches the slower one inside the loop.
+> The pointer speed does not determine the Big-O by itself. Both pointers make only a linear number of forward movements through the list, so the total time is `O(n)`.
 
 **My Mistake**
-- i) Initially moved `fast` by 3 nodes (`fast->next->next->next`) instead of 2.
-- ii) Initially considered increasing `fast`'s speed to optimize, but it does not improve the asymptotic `O(n)` complexity.
+- No meaningful implementation mistake recorded for this problem.
 
 **Complexity**
 - Time: `O(n)`
