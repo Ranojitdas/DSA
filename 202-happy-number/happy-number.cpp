@@ -14,21 +14,15 @@ public:
     bool isHappy(int n) {
         int slow = n;
         int fast = n;
-        int res = 1;
         while(fast != 1){
             slow = SquaredValue(slow);
             fast = SquaredValue(fast);
             fast = SquaredValue(fast);
 
             if(slow == fast and slow != 1){
-                    res = 0;
-                    break;
+                    return false;
                 }
             }
-
-
-        if(res == 0){
-            return false;
-        } else return true;
+     return true;
     }
 };
