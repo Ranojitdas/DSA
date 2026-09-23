@@ -39,6 +39,17 @@ while (fast != nullptr && fast->next != nullptr) {
 - Both start from the same point
 - The speed difference helps reveal cycles or locate positions such as the middle
 
+### Repeated-State Cycle Detection
+A cycle does not require a linked-list data structure. If a state always produces exactly one next state, we can treat the sequence like a linked structure.
+
+For example, in Happy Number:
+
+~~~text
+n → SquaredValue(n) → SquaredValue(...) → ...
+~~~
+
+If a value repeats, the sequence has entered a cycle.
+
 ### Rules
 - Always check `fast != nullptr && fast->next != nullptr` before using `fast->next->next`
 - The number of pointers does not determine complexity; analyze their total movement
@@ -168,6 +179,50 @@ return nullptr
 - Increasing `fast`'s speed does not improve the asymptotic complexity.
 - The standard 1-step / 2-step movement keeps the reasoning and implementation clean.
 - Slow & Fast uses `O(1)` extra space instead of the `O(n)` space required by the HashSet approach.
+
+**Complexity**
+- Time: `O(n)`
+- Space: `O(1)`
+
+### ⭐ LC 202 — Happy Number
+
+**Problem**
+> Repeatedly replace a number with the sum of the squares of its digits. Return true if the process reaches 1; otherwise, it eventually enters a cycle.
+
+**Think / Recognition**
+- Repeatedly applying a function creates a sequence of states.
+- A state always produces one next state → think of it like a linked structure.
+- If a value repeats, the sequence contains a cycle.
+- Need to distinguish reaching 1 from entering a cycle that does not contain 1.
+
+**Brute Force**
+- Use a HashSet to store every number already seen.
+- If 1 is reached → happy.
+- If a number appears again → cycle detected, so not happy.
+- Time: `O(n)`, Space: `O(n)`.
+
+**Pseudocode**
+~~~text
+slow = n
+fast = n
+
+while fast != 1:
+    slow = SquaredValue(slow)
+    fast = SquaredValue(fast)
+    fast = SquaredValue(fast)
+
+    if slow == fast and slow != 1:
+        return false
+
+return true
+~~~
+
+**Keep in mind**
+> Slow & Fast Pointer is not limited to linked lists. It can detect a cycle whenever each state deterministically leads to one next state.
+
+**My Mistake**
+- i) Initially tried to find the correct while condition and considered checking only pointer collision.
+- ii) Initially used an unnecessary `res` variable and `break`; simplified by returning directly when a non-1 cycle is detected.
 
 **Complexity**
 - Time: `O(n)`
