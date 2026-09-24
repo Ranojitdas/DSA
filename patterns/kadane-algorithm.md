@@ -59,4 +59,34 @@ Update:
 
 ## 3. Problems Solved
 
-<!-- Add problems here as they are solved. -->
+### 53. Maximum Subarray
+
+**Think / Recognition**
+- The problem asks for the largest sum of a **contiguous, non-empty subarray**.
+- Use Kadane's Algorithm to track the best subarray sum ending at each index.
+
+**Core Idea**
+At each element, either extend the previous subarray or start a new subarray from the current element. Keep a separate variable for the maximum sum found so far.
+
+**Important Code**
+```cpp
+int best = nums[0];
+int ans = nums[0];
+
+for (int i = 1; i < nums.size(); i++) {
+    int b1 = best + nums[i];
+    int b2 = nums[i];
+    best = max(b1, b2);
+    ans = max(ans, best);
+}
+return ans;
+```
+
+**Keep in mind**
+- `best` is the maximum sum of a subarray ending at the current index.
+- `ans` is the maximum sum found so far.
+- Initialize both with `nums[0]`, not `0`, so all-negative arrays return the largest element rather than zero.
+
+**Complexity**
+- Time: **O(n)** — one traversal.
+- Auxiliary space: **O(1)** — a fixed number of variables.
