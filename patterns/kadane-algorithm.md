@@ -86,20 +86,6 @@ for i from 1 to n - 1:
 return ans
 ```
 
-**Code**
-```cpp
-int best = nums[0];
-int ans = nums[0];
-
-for (int i = 1; i < nums.size(); i++) {
-    int b1 = best + nums[i];
-    int b2 = nums[i];
-    best = max(b1, b2);
-    ans = max(ans, best);
-}
-return ans;
-```
-
 **Keep in mind**
 - `best` is the maximum sum of a subarray ending at the current index.
 - `ans` is the maximum sum found so far.
@@ -146,24 +132,6 @@ for i from 1 to n - 1:
     ans = maximum(ans, best)
 
 return ans
-```
-
-**Code**
-```cpp
-int best = nums[0];
-int worst = nums[0];
-int ans = nums[0];
-
-for (int i = 1; i < nums.size(); i++) {
-    int b1 = best * nums[i];
-    int b2 = worst * nums[i];
-    int b3 = nums[i];
-
-    best = max({b1, b2, b3});
-    worst = min({b1, b2, b3});
-    ans = max(ans, best);
-}
-return ans;
 ```
 
 **Keep in mind**
