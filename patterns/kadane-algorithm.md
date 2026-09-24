@@ -90,3 +90,41 @@ return ans;
 **Complexity**
 - Time: **O(n)** — one traversal.
 - Auxiliary space: **O(1)** — a fixed number of variables.
+
+### 152. Maximum Product Subarray
+
+**Think / Recognition**
+- The problem asks for the maximum product of a **contiguous, non-empty subarray**.
+- Use the maximum-product variation of Kadane's Algorithm because multiplying by a negative number can flip the maximum and minimum products.
+
+**Core Idea**
+At each element, consider starting a new subarray with the current value, extending the previous maximum product, or extending the previous minimum product. Track both the maximum and minimum products ending at the current index, plus a global answer.
+
+**Important Code**
+```cpp
+int best = nums[0];
+int worst = nums[0];
+int ans = nums[0];
+
+for (int i = 1; i < nums.size(); i++) {
+    int b1 = best * nums[i];
+    int b2 = worst * nums[i];
+    int b3 = nums[i];
+
+    best = max({b1, b2, b3});
+    worst = min({b1, b2, b3});
+    ans = max(ans, best);
+}
+return ans;
+```
+
+**Keep in mind**
+- `best` is the maximum product of a subarray ending at the current index.
+- `worst` is the minimum product of a subarray ending at the current index; it matters because a negative value can turn it into a large positive product.
+- `ans` is the maximum product found so far.
+- Consider all three candidates at each index: current value, previous `best` × current value, and previous `worst` × current value.
+- Initialize `best`, `worst`, and `ans` with `nums[0]` to handle arrays with negative values and avoid incorrectly returning zero.
+
+**Complexity**
+- Time: **O(n)** — one traversal.
+- Auxiliary space: **O(1)** — a fixed number of variables.
