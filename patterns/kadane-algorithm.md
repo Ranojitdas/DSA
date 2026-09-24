@@ -65,10 +65,28 @@ Update:
 - The problem asks for the largest sum of a **contiguous, non-empty subarray**.
 - Use Kadane's Algorithm to track the best subarray sum ending at each index.
 
-**Core Idea**
-At each element, either extend the previous subarray or start a new subarray from the current element. Keep a separate variable for the maximum sum found so far.
+**Brute Force**
+- Fix a starting index and extend the subarray one element at a time.
+- Maintain a running sum and update the maximum after each extension.
+- Time: **O(n²)**
+- Auxiliary space: **O(1)**
 
-**Important Code**
+**Core Idea**
+At each element, compare starting fresh at that element with extending the previous subarray. Track the best sum ending at the current index and the overall maximum.
+
+**Pseudocode**
+```text
+best = nums[0]
+ans = nums[0]
+
+for i from 1 to n - 1:
+    best = maximum(nums[i], best + nums[i])
+    ans = maximum(ans, best)
+
+return ans
+```
+
+**Code**
 ```cpp
 int best = nums[0];
 int ans = nums[0];
@@ -88,19 +106,49 @@ return ans;
 - Initialize both with `nums[0]`, not `0`, so all-negative arrays return the largest element rather than zero.
 
 **Complexity**
-- Time: **O(n)** — one traversal.
-- Auxiliary space: **O(1)** — a fixed number of variables.
+- Brute force: **O(n²)** time, **O(1)** auxiliary space.
+- Optimal: **O(n)** time, **O(1)** auxiliary space.
 
 ### 152. Maximum Product Subarray
 
 **Think / Recognition**
 - The problem asks for the maximum product of a **contiguous, non-empty subarray**.
-- Use the maximum-product variation of Kadane's Algorithm because multiplying by a negative number can flip the maximum and minimum products.
+- Negative values can flip product signs, so track both the maximum and minimum products ending at each index.
+
+**Brute Force**
+- Fix each starting index and extend the subarray one element at a time.
+- Maintain a running product instead of recalculating each subarray from scratch.
+- Update the answer with every running product.
+- Time: **O(n²)**
+- Auxiliary space: **O(1)**
 
 **Core Idea**
-At each element, consider starting a new subarray with the current value, extending the previous maximum product, or extending the previous minimum product. Track both the maximum and minimum products ending at the current index, plus a global answer.
+At each element, consider three possibilities:
+1. Start a new subarray with the current value.
+2. Extend the previous maximum product.
+3. Extend the previous minimum product.
 
-**Important Code**
+Track both `best` and `worst` because multiplying by a negative number can turn the minimum product into the new maximum. Track `ans` separately for the best product found so far.
+
+**Pseudocode**
+```text
+best = nums[0]
+worst = nums[0]
+ans = nums[0]
+
+for i from 1 to n - 1:
+    b1 = best * nums[i]
+    b2 = worst * nums[i]
+    b3 = nums[i]
+
+    best = maximum(b1, b2, b3)
+    worst = minimum(b1, b2, b3)
+    ans = maximum(ans, best)
+
+return ans
+```
+
+**Code**
 ```cpp
 int best = nums[0];
 int worst = nums[0];
@@ -119,12 +167,12 @@ return ans;
 ```
 
 **Keep in mind**
-- `best` is the maximum product of a subarray ending at the current index.
-- `worst` is the minimum product of a subarray ending at the current index; it matters because a negative value can turn it into a large positive product.
-- `ans` is the maximum product found so far.
-- Consider all three candidates at each index: current value, previous `best` × current value, and previous `worst` × current value.
-- Initialize `best`, `worst`, and `ans` with `nums[0]` to handle arrays with negative values and avoid incorrectly returning zero.
+- `best`: maximum product of a subarray ending at the current index.
+- `worst`: minimum product ending at the current index; a negative value can turn it into a large positive product.
+- `ans`: maximum product found so far.
+- The three candidates are: current value, previous `best` × current value, and previous `worst` × current value.
+- Initialize `best`, `worst`, and `ans` with `nums[0]` so negative values are handled correctly.
 
 **Complexity**
-- Time: **O(n)** — one traversal.
-- Auxiliary space: **O(1)** — a fixed number of variables.
+- Brute force: **O(n²)** time, **O(1)** auxiliary space.
+- Optimal: **O(n)** time, **O(1)** auxiliary space.
