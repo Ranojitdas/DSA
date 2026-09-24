@@ -227,3 +227,50 @@ return true
 **Complexity**
 - Time: `O(n)`
 - Space: `O(1)`
+
+### ⭐ LC 287 — Find the Duplicate Number
+
+**Problem**
+> Given an array containing n + 1 integers where each integer is in the range 1 to n, find the duplicate number without modifying the array and using O(1) extra space.
+
+**Think / Recognition**
+- Array values are valid indices → treat `nums[index]` as the next pointer.
+- n + 1 positions with values in 1..n guarantees a repeated value.
+- The repeated value creates a cycle in the index-to-value sequence.
+- Find the cycle entrance → duplicate number.
+
+**Brute Force**
+- Traverse the array while storing visited values in a HashSet.
+- If a value is already present, that value is the duplicate.
+- Time: `O(n)`, Space: `O(n)`.
+
+**Pseudocode**
+~~~text
+slow = 0
+fast = 0
+
+while true:
+    slow = nums[slow]
+    fast = nums[fast]
+    fast = nums[fast]
+
+    if slow == fast:
+        slow = 0
+
+        while slow != fast:
+            slow = nums[slow]
+            fast = nums[fast]
+
+        return slow
+~~~
+
+**Keep in mind**
+> Treat `nums[index]` as the next pointer. The duplicate is the entrance of the resulting cycle; the first collision only proves that a cycle exists.
+
+**My Mistake**
+- i) Initially had difficulty seeing how an array could form a cycle because it has a fixed end; the key was to treat each value as the next index.
+- ii) Initially thought the first Slow/Fast collision directly identified the duplicate; the cycle entrance must be found after resetting `slow`.
+
+**Complexity**
+- Time: `O(n)`
+- Space: `O(1)`
