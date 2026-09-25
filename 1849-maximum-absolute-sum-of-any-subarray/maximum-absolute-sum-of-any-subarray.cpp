@@ -14,7 +14,8 @@ public:
 
             best = max({b1,b2,b3});
             worst = min({b1,b2,b3});
-            absbest=max({abs(b1),abs(b2),abs(b3)});
+            // absbest=max({abs(b1),abs(b2),abs(b3)});
+            absbest = max(abs(best),abs(worst));
             ans = max(ans,absbest);
         }
         return ans;
