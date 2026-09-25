@@ -2,19 +2,19 @@ class Solution {
 public:
     int pivotIndex(vector<int>& nums) {
         int n = nums.size();
-        vector<int> prefix(n);
-        vector<int> suffix(n);
-        prefix[0]=0;
-        suffix[n-1]=0;
-        for(int i=1; i<n;i++){
-            prefix[i] = prefix[i-1] + nums[i-1];
+        int prefix = 0;
+        int suffix = 0; 
+        int sum = 0;
+        for(int i = 0; i < n;i++){
+            sum = sum + nums[i];
         }
-        for(int i=n-2; i>=0; i--){
-            suffix[i] = suffix[i+1] + nums[i+1];
-        }
+        for(int i=0;i<n;i++){
+            if(i>0){
+                prefix = prefix + nums[i-1];
+            }
+            suffix = sum - nums[i] - prefix;
 
-        for(int i=0; i<n;i++){
-            if(prefix[i] == suffix[i]){
+            if(prefix == suffix){
                 return i;
             }
         }
