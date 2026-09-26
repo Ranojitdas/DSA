@@ -253,4 +253,5 @@ Mark a section after you can explain its questions clearly without reading notes
 6. Project & Backend Basics
 7. HR & Communication
 
+
 **Practice tip:** For each technical question, aim for a concise definition, the key mechanism or distinction, and one example where applicable.
