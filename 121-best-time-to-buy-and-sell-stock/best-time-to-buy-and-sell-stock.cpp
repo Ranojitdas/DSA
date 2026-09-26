@@ -20,3 +20,5 @@ public:
         return res;
     }
 };
+
+// solved in first try myself using kadane :)
