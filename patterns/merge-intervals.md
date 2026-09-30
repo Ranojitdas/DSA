@@ -105,3 +105,36 @@ Sorting is essential because it lets us process intervals from left to right and
 **My Mistake**
 - i) Initially treated sorting as `O(log n)`; the full sort is `O(n log n)`.
 - ii) Initially considered the optimal solution's space as `O(1)`; the result vector can contain up to `n` intervals, so output space is `O(n)`.
+
+### ⭐ LC 57 — Insert Interval
+
+**Think / Recognition**
+- Intervals are already sorted by start time.
+- A new interval must be inserted while preserving order, then overlapping intervals must be merged.
+- Because the input is already sorted, there is no need to sort again.
+
+**Core Idea**
+- Traverse the sorted intervals once.
+- Insert `newInterval` before the first interval whose start is greater than `newInterval[0]`; otherwise append it after the traversal.
+- Merge the resulting ordered intervals using the same overlap logic as LC 56.
+- Handle the empty input case by returning the new interval.
+
+**Important Code**
+```cpp
+if(!insert && intervals[i][0] > newInterval[0]) {
+    res.push_back(newInterval);
+    insert = true;
+}
+
+if(!insert) {
+    res.push_back(newInterval);
+}
+```
+The first part inserts the new interval without sorting; the second handles the case where it belongs after all existing intervals.
+
+**Keep in mind**
+> The intervals are already sorted—insert in the correct position, then merge in one pass.
+
+**My Mistake**
+- i) Initially missed the edge case where `intervals` is empty; accessing `res[0]` would be invalid.
+- ii) Initially missed the case where `newInterval` belongs after all existing intervals; it must be appended when it was not inserted during the traversal.
