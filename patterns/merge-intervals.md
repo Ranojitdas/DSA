@@ -78,4 +78,30 @@ Keep the earliest start and extend the end to the larger endpoint.
 
 ## 3. Problems Solved
 
-_Interview discussion is completed before individual solved-problem entries are added, according to RULES.md._
+### ⭐ LC 56 — Merge Intervals
+
+**Think / Recognition**
+- Given a collection of ranges and asked to combine overlapping intervals.
+- Sort by start time so potentially overlapping intervals are adjacent.
+
+**Core Idea**
+- Keep the current merged interval as `[start1, end1]`.
+- If `start2 <= end1`, the intervals overlap, so update `end1 = max(end1, end2)`.
+- If `start2 > end1`, save the current interval and start a new one.
+- Push the final current interval after the loop.
+
+**Important Code**
+```cpp
+if (start2 <= end1)
+    end1 = max(end1, end2);
+else
+    result.push_back({start1, end1});
+```
+Sorting is essential because it lets us process intervals from left to right and safely decide when the current merged interval is finished.
+
+**Keep in mind**
+> Sort first, then keep extending the current interval until the next one starts after its end.
+
+**My Mistake**
+- i) Initially treated sorting as `O(log n)`; the full sort is `O(n log n)`.
+- ii) Initially considered the optimal solution's space as `O(1)`; the result vector can contain up to `n` intervals, so output space is `O(n)`.
