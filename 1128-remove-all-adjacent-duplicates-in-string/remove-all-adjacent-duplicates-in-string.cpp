@@ -2,7 +2,7 @@ class Solution {
 public:
     string removeDuplicates(string s) {
         int n = s.size();
-        stack<int> st;
+        stack<char> st;
         string res;
 
         for(int i=0; i<n;i++){
