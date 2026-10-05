@@ -65,25 +65,14 @@ Update:
 - The problem asks for the largest sum of a **contiguous, non-empty subarray**.
 - Use Kadane's Algorithm to track the best subarray sum ending at each index.
 
-**Brute Force**
-- Fix a starting index and extend the subarray one element at a time.
-- Maintain a running sum and update the maximum after each extension.
-- Time: **O(n²)**
-- Auxiliary space: **O(1)**
-
 **Core Idea**
 At each element, compare starting fresh at that element with extending the previous subarray. Track the best sum ending at the current index and the overall maximum.
 
-**Pseudocode**
-```text
-best = nums[0]
-ans = nums[0]
-
-for i from 1 to n - 1:
-    best = maximum(nums[i], best + nums[i])
-    ans = maximum(ans, best)
-
-return ans
+**Core Logic**
+```cpp
+// Inside main loop
+best = max(nums[i], best + nums[i]);
+ans = max(ans, best);
 ```
 
 **Keep in mind**
@@ -91,22 +80,11 @@ return ans
 - `ans` is the maximum sum found so far.
 - Initialize both with `nums[0]`, not `0`, so all-negative arrays return the largest element rather than zero.
 
-**Complexity**
-- Brute force: **O(n²)** time, **O(1)** auxiliary space.
-- Optimal: **O(n)** time, **O(1)** auxiliary space.
-
 ### 152. Maximum Product Subarray
 
 **Think / Recognition**
 - The problem asks for the maximum product of a **contiguous, non-empty subarray**.
 - Negative values can flip product signs, so track both the maximum and minimum products ending at each index.
-
-**Brute Force**
-- Fix each starting index and extend the subarray one element at a time.
-- Maintain a running product instead of recalculating each subarray from scratch.
-- Update the answer with every running product.
-- Time: **O(n²)**
-- Auxiliary space: **O(1)**
 
 **Core Idea**
 At each element, consider three possibilities:
@@ -116,22 +94,15 @@ At each element, consider three possibilities:
 
 Track both `best` and `worst` because multiplying by a negative number can turn the minimum product into the new maximum. Track `ans` separately for the best product found so far.
 
-**Pseudocode**
-```text
-best = nums[0]
-worst = nums[0]
-ans = nums[0]
+**Core Logic**
+```cpp
+// Inside main loop
+int b1 = best * nums[i];
+int b2 = worst * nums[i];
 
-for i from 1 to n - 1:
-    b1 = best * nums[i]
-    b2 = worst * nums[i]
-    b3 = nums[i]
-
-    best = maximum(b1, b2, b3)
-    worst = minimum(b1, b2, b3)
-    ans = maximum(ans, best)
-
-return ans
+best = max({nums[i], b1, b2});
+worst = min({nums[i], b1, b2});
+ans = max(ans, best);
 ```
 
 **Keep in mind**
@@ -141,6 +112,3 @@ return ans
 - The three candidates are: current value, previous `best` × current value, and previous `worst` × current value.
 - Initialize `best`, `worst`, and `ans` with `nums[0]` so negative values are handled correctly.
 
-**Complexity**
-- Brute force: **O(n²)** time, **O(1)** auxiliary space.
-- Optimal: **O(n)** time, **O(1)** auxiliary space.

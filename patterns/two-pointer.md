@@ -119,6 +119,9 @@ If every pointer moves through the array in one pass, the total work can still b
 
 ### Rules
 
+**Generic Brute Force**
+- For pair/triplet/subarray problems, the generic brute force is using nested loops (2 loops for pairs, 3 for triplets, etc.) to check every combination. Time complexity: **O(n²)** or **O(n³)**.
+
 **Pointer movement**
 
 - Every loop iteration should make progress.
@@ -161,13 +164,17 @@ If every pointer moves through the array in one pass, the total work can still b
 - `sum < target` → `left++`
 - `sum > target` → `right--`
 
-**Important Code**
-
+**Core Logic**
 ```cpp
-if (sum < target)
-    left++;
-else
-    right--;
+int i = 0;
+int j = numbers.size() - 1;
+
+while(i < j) {
+    int sum = numbers[i] + numbers[j];
+    if(sum == target) return {i + 1, j + 1};
+    if(sum > target) j--;
+    if(sum < target) i++;
+}
 ```
 
 Because the array is sorted, moving `left` increases the possible sum, while moving `right` decreases it. This lets us discard one side safely.
@@ -190,11 +197,15 @@ Because the array is sorted, moving `left` increases the possible sum, while mov
 - One pointer tracks the position of the next unique value.
 - The other scans the array.
 
-**Important Code**
-
+**Core Logic**
 ```cpp
-if (nums[fast] != nums[slow])
-    nums[++slow] = nums[fast];
+int i = 0, j = 1;
+while (j <= n) {
+    if (nums[i] != nums[j]) {
+        nums[i + 1] = nums[j];
+        i++;
+    } else j++;
+}
 ```
 
 `fast` scans for a new value; when it differs from the last kept value, `slow` moves forward and writes that unique value into the valid portion.
@@ -232,11 +243,20 @@ if (nums[fast] != nums[slow])
 - One pointer scans the array.
 - Another tracks where the next non-zero element should go.
 
-**Important Code**
-
+**Core Logic**
 ```cpp
-if (nums[fast] != 0)
-    swap(nums[slow++], nums[fast]);
+int i = 0, j = i + 1;
+while(j < n) {
+    if (nums[i] == 0 and nums[j] == 0) j++;
+    else if (nums[i] == 0) {
+        int k = nums[i]; // manual swap
+        nums[i] = nums[j];
+        nums[j] = k;
+        i++; j++;
+    } else {
+        i++; j++;
+    }
+}
 ```
 
 `fast` searches for non-zero values, while `slow` marks the next position where a non-zero value should be placed.
@@ -261,21 +281,24 @@ if (nums[fast] != 0)
 - Solve the remaining two-element target with `left` and `right`.
 - Skip duplicates to avoid repeated triplets.
 
-**Important Code**
-
-For fixed `i`, we need:
-
-```text
-nums[left] + nums[right] = -nums[i]
-```
-
-So:
-
+**Core Logic**
 ```cpp
-int target = -nums[i];
+int left = i + 1, right = n - 1;
+while(right > left) {
+    int sum = nums[left] + nums[right];
+    if(sum == -(nums[i])) {
+        result.push_back({nums[i], nums[left], nums[right]});
+        left++;
+        while(left < n and nums[left] == nums[left - 1]) left++;
+        right--;
+        while(right > 0 and nums[right] == nums[right + 1]) right--;
+    }
+    else if(sum > -(nums[i])) right--;
+    else if(sum < -(nums[i])) left++;
+}
 ```
 
-This converts the remaining part of the 3Sum problem into a **Two Sum target**.
+This converts the remaining part of the 3Sum problem into a **Two Sum target**, while manually skipping duplicates to avoid repeating valid triplets.
 
 **Keep in mind**
 > A triplet problem can become a Two Sum problem after fixing one element.
@@ -295,24 +318,23 @@ This converts the remaining part of the 3Sum problem into a **Two Sum target**.
 - Move pointers based on whether the current sum is smaller or larger than the target.
 - Keep the sum that is closest to the target.
 
-**Important Code**
-
-Initialize `result` with the first valid triplet:
-
+**Core Logic**
 ```cpp
 int result = nums[0] + nums[1] + nums[2];
+for (int i = 0; i < nums.size() - 2; i++) {
+    int left = i + 1, right = nums.size() - 1;
+    while (left < right) {
+        int sum = nums[i] + nums[left] + nums[right];
+        if (abs(sum - target) < abs(result - target)) {
+            result = sum;
+        }
+        if (sum < target) left++;
+        else right--;
+    }
+}
 ```
 
-We need an actual valid triplet as the initial comparison value; starting from `0` could be wrong because `0` may not be the closest possible sum.
-
-Update it whenever a closer sum is found:
-
-```cpp
-if (abs(sum - target) < abs(result - target))
-    result = sum;
-```
-
-We compare the **distance from the target**, not whether the sum itself is numerically smaller or larger.
+We compare the **distance from the target**, not whether the sum itself is numerically smaller or larger. Starting `result` from an actual triplet is crucial because `0` may not be the closest possible sum.
 
 **Keep in mind**
 > Closest means minimum distance from target.
@@ -330,11 +352,17 @@ We compare the **distance from the target**, not whether the sum itself is numer
 - Fix `i` and use `left`/`right`.
 - If the current sum is smaller than target, all choices from `left+1` through `right` are also valid.
 
-**Important Code**
-
+**Core Logic**
 ```cpp
-if (sum1 < target)
-    output += right - left;
+while (left < right) {
+    int sum = nums[i] + nums[left] + nums[right];
+    if (sum < target) {
+        output += right - left;
+        left++;
+    } else {
+        right--;
+    }
+}
 ```
 
 When the largest possible third element `arr[right]` still gives a valid sum, every smaller third element between `left + 1` and `right` is also valid. `right - left` counts those choices at once.
@@ -362,15 +390,18 @@ This extends the 3Sum idea:
 
 > **Quadruplet → fix two → remaining Two Sum.**
 
-**Important Code**
+**Core Logic**
 
 Because each `nums[i]` can be as large as `10^9`, the sum of four values can reach `4 × 10^9`, which does not fit in a 32-bit `int`.
 
 ```cpp
-long long sum = (long long)nums[i]
-              + (long long)nums[j]
-              + (long long)nums[left]
-              + (long long)nums[right];
+while (left < right) {
+    long long sum = (long long)nums[i] + nums[j] + nums[left] + nums[right];
+    if (sum == target) {
+        // Record and skip duplicates
+    } else if (sum < target) left++;
+    else right--;
+}
 ```
 
 The cast makes the arithmetic happen as `long long`, preventing integer overflow.
@@ -419,13 +450,19 @@ The cast makes the arithmetic happen as `long long`, preventing integer overflow
 - The larger absolute value produces the larger square.
 - Fill the result from the end.
 
-**Important Code**
+**Core Logic**
 
 ```cpp
-if (abs(nums[left]) > abs(nums[right]))
-    result[pos--] = nums[left] * nums[left];
-else
-    result[pos--] = nums[right] * nums[right];
+int i = 0, j = n - 1, k = n - 1;
+while(j >= i) {
+    if(abs(nums[j]) >= abs(nums[i])) {
+        res[k] = nums[j] * nums[j];
+        j--; k--;
+    } else {
+        res[k] = nums[i] * nums[i];
+        i++; k--;
+    }
+}
 ```
 
 The largest square must come from one of the two ends, so we place the larger square at the current position from the back.
@@ -444,10 +481,15 @@ The largest square must come from one of the two ends, so we place the larger sq
 - Compare the largest remaining values and fill the array from the back.
 - Working backward avoids overwriting values that still need to be processed.
 
-**Important Code**
+**Core Logic**
 
 ```cpp
-nums[k--] = max(nums[i], nums[j]);
+int i = m - 1, j = n - 1, k = m + n - 1;
+while (i >= 0 && j >= 0) {
+    if (nums1[i] > nums2[j]) nums1[k--] = nums1[i--];
+    else nums1[k--] = nums2[j--];
+}
+while (j >= 0) nums1[k--] = nums2[j--];
 ```
 
 We fill from the back because the extra space is at the end; placing the largest value there prevents overwriting unprocessed elements.

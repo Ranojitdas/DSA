@@ -51,6 +51,10 @@ n → SquaredValue(n) → SquaredValue(...) → ...
 If a value repeats, the sequence has entered a cycle.
 
 ### Rules
+
+**Generic Brute Force**
+- For cycle detection, the generic brute force is using a HashSet to store visited nodes/states. If a state repeats, there is a cycle. Time complexity: **O(n)**, Space complexity: **O(n)**.
+
 - Always check `fast != nullptr && fast->next != nullptr` before using `fast->next->next`
 - The number of pointers does not determine complexity; analyze their total movement
 - If there is no cycle, `fast` eventually reaches `nullptr`
@@ -68,16 +72,17 @@ If a value repeats, the sequence has entered a cycle.
 - If a cycle exists, `fast` eventually catches `slow`.
 - If `fast` reaches `nullptr`, there is no cycle.
 
-**Important Code**
-~~~cpp
-while (fast != nullptr && fast->next != nullptr) {
+**Core Logic**
+```cpp
+while(fast != nullptr and fast->next != nullptr){
     slow = slow->next;
     fast = fast->next->next;
 
-    if (slow == fast)
+    if(slow == fast){
         return true;
+    }
 }
-~~~
+```
 - Both safety checks are needed before `fast->next->next`.
 
 **Keep in mind**
@@ -86,10 +91,6 @@ while (fast != nullptr && fast->next != nullptr) {
 **My Mistake**
 - i) Initially moved `fast` by 3 nodes instead of 2.
 - ii) Initially thought increasing `fast`'s speed would improve the asymptotic complexity.
-
-**Complexity**
-- Time: `O(n)`
-- Space: `O(1)`
 
 ### ⭐ LC 876 — Middle of the Linked List
 
@@ -101,34 +102,19 @@ while (fast != nullptr && fast->next != nullptr) {
 - One pointer moves 1 step while the other moves 2 steps.
 - When `fast` reaches the end, `slow` is at the middle.
 
-**Brute Force**
-- Traverse the list once to find its length.
-- Calculate the middle position.
-- Traverse again from `head` to the middle.
-- Time: `O(n)`, Space: `O(1)`.
-- Two passes are used, so this can be done more directly with Slow & Fast Pointer.
-
-**Pseudocode**
-~~~text
-slow = head
-fast = head
-
-while fast exists and fast->next exists:
-    slow = slow->next
-    fast = fast->next->next
-
-return slow
-~~~
+**Core Logic**
+```cpp
+while(fast != nullptr and fast->next != nullptr){
+    slow = slow->next;
+    fast = fast->next->next;
+}
+```
 
 **Keep in mind**
 > The pointer speed does not determine the Big-O by itself. Both pointers make only a linear number of forward movements through the list, so the total time is `O(n)`.
 
 **My Mistake**
 - No meaningful implementation mistake recorded for this problem.
-
-**Complexity**
-- Time: `O(n)`
-- Space: `O(1)`
 
 ### ⭐ LC 142 — Linked List Cycle II
 
@@ -141,32 +127,22 @@ return slow
 - Then reset `slow` to `head` and move both pointers one step at a time.
 - Their second meeting point is the cycle entrance.
 
-**Brute Force**
-- Traverse the list while storing each visited node in a HashSet.
-- If the current node is already in the set, that node is the cycle entrance.
-- If `nullptr` is reached, there is no cycle.
-- Time: `O(n)`, Space: `O(n)`.
-
-**Pseudocode**
-~~~text
-slow = head
-fast = head
-
-while fast exists and fast->next exists:
-    slow = slow->next
-    fast = fast->next->next
-
-    if slow == fast:
-        slow = head
-
-        while slow != fast:
-            slow = slow->next
-            fast = fast->next
-
-        return slow
-
-return nullptr
-~~~
+**Core Logic**
+```cpp
+while(fast != nullptr and fast->next != nullptr){
+    slow = slow->next;
+    fast = fast->next->next;
+    if(slow == fast){
+        slow = head;
+        while(slow != fast){
+            slow = slow->next;
+            fast = fast->next;
+        }
+        output = slow;
+        break;
+    } 
+}
+```
 
 **Keep in mind**
 > The first meeting only proves that a cycle exists. Reset `slow` to `head`; moving both pointers one step at a time makes their next meeting point the cycle entrance.
@@ -178,11 +154,6 @@ return nullptr
 **Optimization**
 - Increasing `fast`'s speed does not improve the asymptotic complexity.
 - The standard 1-step / 2-step movement keeps the reasoning and implementation clean.
-- Slow & Fast uses `O(1)` extra space instead of the `O(n)` space required by the HashSet approach.
-
-**Complexity**
-- Time: `O(n)`
-- Space: `O(1)`
 
 ### ⭐ LC 202 — Happy Number
 
@@ -195,27 +166,18 @@ return nullptr
 - If a value repeats, the sequence contains a cycle.
 - Need to distinguish reaching 1 from entering a cycle that does not contain 1.
 
-**Brute Force**
-- Use a HashSet to store every number already seen.
-- If 1 is reached → happy.
-- If a number appears again → cycle detected, so not happy.
-- Time: `O(n)`, Space: `O(n)`.
+**Core Logic**
+```cpp
+while(fast != 1){
+    slow = SquaredValue(slow);
+    fast = SquaredValue(fast);
+    fast = SquaredValue(fast);
 
-**Pseudocode**
-~~~text
-slow = n
-fast = n
-
-while fast != 1:
-    slow = SquaredValue(slow)
-    fast = SquaredValue(fast)
-    fast = SquaredValue(fast)
-
-    if slow == fast and slow != 1:
-        return false
-
-return true
-~~~
+    if(slow == fast and slow != 1){
+        return false;
+    }
+}
+```
 
 **Keep in mind**
 > Slow & Fast Pointer is not limited to linked lists. It can detect a cycle whenever each state deterministically leads to one next state.
@@ -223,10 +185,6 @@ return true
 **My Mistake**
 - i) Initially tried to find the correct while condition and considered checking only pointer collision.
 - ii) Initially used an unnecessary `res` variable and `break`; simplified by returning directly when a non-1 cycle is detected.
-
-**Complexity**
-- Time: `O(n)`
-- Space: `O(1)`
 
 ### ⭐ LC 287 — Find the Duplicate Number
 
@@ -239,30 +197,24 @@ return true
 - The repeated value creates a cycle in the index-to-value sequence.
 - Find the cycle entrance → duplicate number.
 
-**Brute Force**
-- Traverse the array while storing visited values in a HashSet.
-- If a value is already present, that value is the duplicate.
-- Time: `O(n)`, Space: `O(n)`.
+**Core Logic**
+```cpp
+while(true){
+    slow = nums[slow];
+    fast = nums[fast];
+    fast = nums[fast];
 
-**Pseudocode**
-~~~text
-slow = 0
-fast = 0
-
-while true:
-    slow = nums[slow]
-    fast = nums[fast]
-    fast = nums[fast]
-
-    if slow == fast:
-        slow = 0
-
-        while slow != fast:
-            slow = nums[slow]
-            fast = nums[fast]
-
-        return slow
-~~~
+    if(slow == fast){
+        slow = 0;
+        while(slow != fast){
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+        res = slow;
+        break;
+    }
+}
+```
 
 **Keep in mind**
 > Treat `nums[index]` as the next pointer. The duplicate is the entrance of the resulting cycle; the first collision only proves that a cycle exists.
@@ -270,7 +222,3 @@ while true:
 **My Mistake**
 - i) Initially had difficulty seeing how an array could form a cycle because it has a fixed end; the key was to treat each value as the next index.
 - ii) Initially thought the first Slow/Fast collision directly identified the duplicate; the cycle entrance must be found after resetting `slow`.
-
-**Complexity**
-- Time: `O(n)`
-- Space: `O(1)`

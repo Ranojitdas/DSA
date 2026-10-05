@@ -42,6 +42,7 @@ The subsection names here should be **pattern-specific**, based on the main reus
 - Usually use around **2–4 main pattern/variation subsections**.
 - Keep subsection names short and natural so they are easy to scan and copy into the handwritten notebook.
 - Add a single **Rules** subsection for short reusable rules that do not belong to one specific variation.
+- Add a **Generic Brute Force** (or similar) subsection if the pattern has a standard brute-force approach (e.g., "nested loops to check all subarrays"). Documenting it here saves you from repeating it in every individual problem entry.
 - Do not create extra subsections under **Rules** by default. Split Rules further only when a pattern genuinely needs separate categories such as Movement, Complexity, or Edge Cases.
 - Do not create a subsection just to make the structure look fuller. Every subsection should contain genuinely reusable knowledge.
 
@@ -59,11 +60,11 @@ Use:
 **Core Idea**
 - Short explanation of the approach.
 
-**Important Code**
-- Only important implementation details, initialization, or key lines that are easy to forget.
+**Core Logic**
+- The main structural loop or code block (usually 4-7 lines) that actually performs the logic, so you can practice translating the Core Idea into code.
+- Omit basic boilerplate (like `int ans = 0;` or `return ans;`) to keep it concise.
 - When a key code line represents the main trick or reasoning, briefly explain **why it is needed / why it works**.
-- Do not explain every ordinary line of code; focus on the implementation detail that is important for later revision.
-- If there is no genuinely important code detail, omit this section.
+- If the implementation is trivial, you can omit this section.
 
 **Keep in mind**
 > One short, natural memory trigger that makes the idea click later.
@@ -105,7 +106,7 @@ The discussion should cover:
 
 The purpose is to practice explaining solutions clearly in an interview, not only producing accepted code.
 
-The interview discussion does not need to be copied into the pattern MD. The GitHub notes should remain concise and revision-oriented.
+The interview discussion does not need to be copied into the pattern MD. **Do not include `Brute Force` or `Complexity` sections in the problem entry unless there is a very specific, non-obvious trick or it is absolutely necessary for revision.** The GitHub notes must remain concise and revision-oriented.
 
 The problem-solving attempt comes first. Hints and explanations should remain progressive so that the solution is still derived by Ranojit whenever possible.
 

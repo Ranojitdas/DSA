@@ -69,6 +69,9 @@ Keep the earliest start and extend the end to the larger endpoint.
 
 ### Rules
 
+**Generic Brute Force**
+- For interval overlaps, the generic brute force is to compare every interval with every other interval using nested loops. Time complexity: **O(N²)**.
+
 - Sort by **start** before applying the one-pass merge logic.
 - Maintain the current interval as `[start1, end1]`.
 - On overlap: update `end1 = max(end1, end2)`.
@@ -90,12 +93,24 @@ Keep the earliest start and extend the end to the larger endpoint.
 - If `start2 > end1`, save the current interval and start a new one.
 - Push the final current interval after the loop.
 
-**Important Code**
+**Core Logic**
 ```cpp
-if (start2 <= end1)
-    end1 = max(end1, end2);
-else
-    result.push_back({start1, end1});
+int start1 = intervals[0][0];
+int end1  = intervals[0][1];
+
+for(int i = 1; i < n; i++) {
+    int start2 = intervals[i][0];
+    int end2 = intervals[i][1];
+
+    if(end1 >= start2) {
+        end1 = max(end1, end2);
+        continue;
+    }
+    res.push_back({start1, end1});
+    start1 = start2;
+    end1 = end2;
+}
+res.push_back({start1, end1});
 ```
 Sorting is essential because it lets us process intervals from left to right and safely decide when the current merged interval is finished.
 
@@ -119,16 +134,21 @@ Sorting is essential because it lets us process intervals from left to right and
 - Merge the resulting ordered intervals using the same overlap logic as LC 56.
 - Handle the empty input case by returning the new interval.
 
-**Important Code**
+**Core Logic**
 ```cpp
-if(!insert && intervals[i][0] > newInterval[0]) {
-    res.push_back(newInterval);
-    insert = true;
+bool insert = false;
+for(int i = 0; i < n; i++) {
+    if(insert == false and intervals[i][0] > newInterval[0]) {
+        res.push_back({newInterval});
+        insert = true;
+    }
+    res.push_back({intervals[i]});
+}
+if(insert == false) {
+    res.push_back({newInterval});
 }
 
-if(!insert) {
-    res.push_back(newInterval);
-}
+// ... Then apply standard LC 56 merge logic on the resulting array ...
 ```
 The first part inserts the new interval without sorting; the second handles the case where it belongs after all existing intervals.
 

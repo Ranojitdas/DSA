@@ -141,6 +141,9 @@ This avoids repeatedly calculating the same range from scratch.
 
 ### Rules
 
+**Generic Brute Force**
+- For substring/subarray problems, the generic brute force is using nested loops to generate all possible subarrays, usually O(N²) or O(N³).
+
 - A **subarray / substring is continuous**; a subsequence does not have to be continuous.
 - Fixed Window → window size usually stays `k`.
 - Dynamic Window → window size changes according to a condition.
@@ -169,13 +172,22 @@ This avoids repeatedly calculating the same range from scratch.
 - Remove the element leaving from the left.
 - Keep the maximum average seen so far.
 
-Instead of recalculating every `k`-element sum:
-
+**Core Logic**
 ```cpp
-sum = sum + nums[right] - nums[left];
-```
+double initsum = 0;
+for(int i = 0 ; i < k ; i++){
+    initsum = initsum + nums[i];
+}
+double sum = initsum;
+double output = sum / k;
 
-The window moves by one position while its size remains `k`.
+while(right < n){
+    sum = ((sum + nums[right]) - nums[left]);
+    double avg = sum / k;
+    if(avg > output) output = avg;
+    left++; right++;
+}
+```
 
 **Keep in mind**
 > **Fixed window → add the incoming element and remove the outgoing element.**
@@ -224,15 +236,21 @@ The same fixed-window structure from LC 643 applies here; the only difference is
 - Shrink from the left while it remains valid, updating the minimum length each time.
 - If no valid window is found, return `0`.
 
-The important dynamic-window structure is:
-
-```text
-sum < target
-→ expand right
-
-sum >= target
-→ update answer
-→ shrink left
+**Core Logic**
+```cpp
+while(high < n){
+    sum = sum + nums[high];
+    
+    while(sum >= target){
+        int len = high - low + 1;
+        if(res >= len){
+            res = len;
+        }
+        sum = sum - nums[low];
+        low++;
+    }
+    high++;
+}
 ```
 
 Because all numbers are **positive**, removing elements from the left can only decrease the sum, so shrinking lets us search for the shortest valid window.
@@ -243,7 +261,7 @@ Because all numbers are **positive**, removing elements from the left can only d
 **My Mistake**
 - i) I initially thought the `sum < target` case needed a separate answer condition. It doesn't—the window simply needs to expand. The `res == INT_MAX` check belongs at the end to handle the case where no valid subarray was ever found.
 
-#### LC 904 — Fruit Into Baskets
+#### ⭐ LC 904 — Fruit Into Baskets
 
 **Think / Recognition**
 - Array
@@ -258,13 +276,22 @@ Because all numbers are **positive**, removing elements from the left can only d
 - Decrease the outgoing fruit's frequency and erase its type when the frequency becomes `0`.
 - Update the maximum length after the window becomes valid again.
 
-The key dynamic-window structure is:
-
-```text
-add fruits[high]
-→ if types > 2, shrink from left
-→ window becomes valid
-→ update maximum length
+**Core Logic**
+```cpp
+for(high = 0; high < n; high++){
+    f[fruits[high]]++;
+    while(f.size() > 2){
+        f[fruits[low]]--;
+        if(f[fruits[low]] == 0){
+            f.erase(fruits[low]);
+        }
+        low++;
+    }
+    if(f.size() <= 2){
+        int len = high - low + 1;
+        res = max(len, res);
+    }
+}
 ```
 
 **Keep in mind**
@@ -284,16 +311,20 @@ add fruits[high]
 - If the current character becomes repeated, shrink from the left until the window is valid again.
 - Update the maximum window length after removing the duplicate.
 
-The key condition is:
-
+**Core Logic**
 ```cpp
-while(f[s[high]] > 1){
-    f[s[low]]--;
-    low++;
+for(high = 0; high < n ; high++){
+    f[s[high]]++;
+    while(f[s[high]] > 1){
+        f[s[low]]--;
+        low++;
+    }
+    int len = high - low + 1;
+    res = max(len, res);
 }
 ```
 
-This keeps the current window free of duplicate characters.
+This `while` loop keeps the current window free of duplicate characters by shrinking from the left until the duplicate is removed.
 
 **Keep in mind**
 > **When a duplicate appears, shrink from the left until the window becomes unique again.**
@@ -314,10 +345,21 @@ This keeps the current window free of duplicate characters.
 - If the number of zeros becomes greater than `k`, shrink from the left until the window is valid again.
 - Keep the maximum valid window length.
 
-**Important Code**
+**Core Logic**
 ```cpp
-int len = high - low + 1;
-int diff = len - freq;
+for(high = 0; high < n; high++){
+    if(nums[high] == 1) freq++;
+    int len = high - low + 1;
+    int diff = len - freq; // diff is the number of 0s
+    
+    while(diff > k){
+        if(nums[low] == 1) freq--;
+        low++;
+        len = high - low + 1;
+        diff = len - freq;
+    }
+    res = max(len, res);
+}
 ```
 
 Here, `diff` represents the number of zeros because:
@@ -346,11 +388,20 @@ Here, `diff` represents the number of zeros because:
 - Every valid window is a candidate for the minimum.
 - Store `start` and `res` together because they describe the same best window.
 
-**Important Code**
+**Core Logic**
 ```cpp
-if(res > len){
-    res = len;
-    start = low;
+for(high = 0; high < n; high++){
+    have[s[high]]++;
+
+    while(correct(have, needed)){
+        int len = high - low + 1;
+        if(res > len){
+            res = len;
+            start = low;
+        }
+        have[s[low]]--;
+        low++;
+    }
 }
 ```
 
@@ -371,8 +422,4 @@ Also:
 - The submitted solution checks validity by scanning all 256 frequency positions in `correct()` each time.
 - This is still **O(n)** because 256 is a fixed constant, but it adds a noticeable constant factor.
 - A `count` variable can track how many required character occurrences are still missing, making the validity check **O(1)** instead of repeatedly scanning 256 entries.
-- Overall complexity remains **O(n)**, while the constant factor improves.
-
-**Complexity**
-- Time: **O(n)**
-- Space: **O(1)** because the frequency arrays have fixed size 256.
+- Overall time complexity remains **O(n)**, while the constant factor improves. Space is **O(1)** because the frequency arrays have a fixed size of 256.
